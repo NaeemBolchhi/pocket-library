@@ -1,0 +1,130 @@
+#pocketlibrary {
+    &, & * {
+        box-sizing: border-box;
+    }
+    svg {
+        overflow: visible;
+    }
+    --_rem: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: calc(1 * var(--_rem));
+    bottom: calc(1 * var(--_rem));
+    z-index: 9999;
+    font-size: calc(.7 * var(--_rem));
+    line-height: 0;
+    gap: calc(.5 * var(--_rem));
+    > div:not(.pl-subsettings), div.pl-subsettings > div {
+        svg {
+            height: 100%;
+            aspect-ratio: 1/1;
+            line-height: 0;
+            padding: calc(.4 * var(--_rem));
+            border-radius: calc(1.1 * var(--_rem));
+        }
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 0;
+        height: calc(2.2 * var(--_rem));
+        width: calc(2.2 * var(--_rem));
+        border-radius: calc(1.1 * var(--_rem));
+        background: #161616;
+        color: #ededed;
+        padding: calc(.2 * var(--_rem));
+        box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+        cursor: pointer;
+    }
+    > div:not(.pl-subsettings) {
+        border: calc(.1 * var(--_rem)) solid #ffffff22;
+        svg {
+            &:hover, &:focus {
+                background: #3c3c3c;
+            }
+        }
+        &.pl-download {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            padding: calc(.2 * var(--_rem));
+            > div {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                width: 100%;
+                gap: calc(.5 * var(--_rem));
+                padding: calc(.4 * var(--_rem));
+                svg {
+                    height: 100%;
+                    aspect-ratio: 1/1;
+                    padding: 0;
+                    &:hover, &:focus {
+                        background: unset;
+                    }
+                }
+                &:hover, &:focus {
+                    background: #3c3c3c;
+                    border-radius: calc(1.1 * var(--_rem));
+                }
+            }
+        }
+    }
+    > div.pl-subsettings {
+        position: absolute;
+        left: 0;
+        bottom: calc(2.7 * var(--_rem));
+        z-index: 9999;
+        display: flex;
+        flex-direction: column-reverse;
+        gap: calc(.5 * var(--_rem));
+        > div {
+            cursor: default;
+            position: relative;
+            gap: calc(.5 * var(--_rem));
+            border: calc(.1 * var(--_rem)) solid #ffffff22;
+            > div {
+                border: calc(.1 * var(--_rem)) solid #ffffff22;
+                position: absolute;
+                left: calc(2.5 * var(--_rem));
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                line-height: 0;
+                height: calc(2.2 * var(--_rem));
+                width: fit-content;
+                border-radius: calc(1.1 * var(--_rem));
+                background: #161616;
+                color: #ededed;
+                box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+                padding: calc(.2 * var(--_rem));
+                > svg {
+                    padding: calc(.4 * var(--_rem));
+                    cursor: pointer;
+                    border-radius: calc(1.1 * var(--_rem));
+                    &:hover, &:focus {
+                        background: #3c3c3c;
+                    }
+                }
+            }
+            &.pl-textsize {
+                > div {
+                    > span {
+                        width: 4ch;
+                        text-align: center;
+                        padding: 0 calc(.2 * var(--_rem));
+                    }
+                }
+            }
+        }
+    }
+    div.pl-fontswap {
+        &.pl-serif .pl-sans,
+        &.pl-sans .pl-serif {
+            color: #ededed66;
+        }
+    }
+}

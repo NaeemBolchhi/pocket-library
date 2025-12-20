@@ -1,0 +1,2 @@
+// Define styles
+const mainStyles = `

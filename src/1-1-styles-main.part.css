@@ -1,0 +1,123 @@
+#pocketlibrary {
+  --_rem: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  left: calc(1 * var(--_rem));
+  bottom: calc(1 * var(--_rem));
+  z-index: 9999;
+  font-size: calc(0.7 * var(--_rem));
+  line-height: 0;
+  gap: calc(0.5 * var(--_rem));
+}
+#pocketlibrary, #pocketlibrary * {
+  box-sizing: border-box;
+}
+#pocketlibrary svg {
+  overflow: visible;
+}
+#pocketlibrary > div:not(.pl-subsettings), #pocketlibrary div.pl-subsettings > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  height: calc(2.2 * var(--_rem));
+  width: calc(2.2 * var(--_rem));
+  border-radius: calc(1.1 * var(--_rem));
+  background: #161616;
+  color: #ededed;
+  padding: calc(0.2 * var(--_rem));
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+  cursor: pointer;
+}
+#pocketlibrary > div:not(.pl-subsettings) svg, #pocketlibrary div.pl-subsettings > div svg {
+  height: 100%;
+  aspect-ratio: 1/1;
+  line-height: 0;
+  padding: calc(0.4 * var(--_rem));
+  border-radius: calc(1.1 * var(--_rem));
+}
+#pocketlibrary > div:not(.pl-subsettings) {
+  border: calc(0.1 * var(--_rem)) solid rgba(255, 255, 255, 0.1333333333);
+}
+#pocketlibrary > div:not(.pl-subsettings) svg:hover, #pocketlibrary > div:not(.pl-subsettings) svg:focus {
+  background: #3c3c3c;
+}
+#pocketlibrary > div:not(.pl-subsettings).pl-download {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: calc(0.2 * var(--_rem));
+}
+#pocketlibrary > div:not(.pl-subsettings).pl-download > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  gap: calc(0.5 * var(--_rem));
+  padding: calc(0.4 * var(--_rem));
+}
+#pocketlibrary > div:not(.pl-subsettings).pl-download > div svg {
+  height: 100%;
+  aspect-ratio: 1/1;
+  padding: 0;
+}
+#pocketlibrary > div:not(.pl-subsettings).pl-download > div svg:hover, #pocketlibrary > div:not(.pl-subsettings).pl-download > div svg:focus {
+  background: unset;
+}
+#pocketlibrary > div:not(.pl-subsettings).pl-download > div:hover, #pocketlibrary > div:not(.pl-subsettings).pl-download > div:focus {
+  background: #3c3c3c;
+  border-radius: calc(1.1 * var(--_rem));
+}
+#pocketlibrary > div.pl-subsettings {
+  position: absolute;
+  left: 0;
+  bottom: calc(2.7 * var(--_rem));
+  z-index: 9999;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: calc(0.5 * var(--_rem));
+}
+#pocketlibrary > div.pl-subsettings > div {
+  cursor: default;
+  position: relative;
+  gap: calc(0.5 * var(--_rem));
+  border: calc(0.1 * var(--_rem)) solid rgba(255, 255, 255, 0.1333333333);
+}
+#pocketlibrary > div.pl-subsettings > div > div {
+  border: calc(0.1 * var(--_rem)) solid rgba(255, 255, 255, 0.1333333333);
+  position: absolute;
+  left: calc(2.5 * var(--_rem));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  height: calc(2.2 * var(--_rem));
+  width: -moz-fit-content;
+  width: fit-content;
+  border-radius: calc(1.1 * var(--_rem));
+  background: #161616;
+  color: #ededed;
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+  padding: calc(0.2 * var(--_rem));
+}
+#pocketlibrary > div.pl-subsettings > div > div > svg {
+  padding: calc(0.4 * var(--_rem));
+  cursor: pointer;
+  border-radius: calc(1.1 * var(--_rem));
+}
+#pocketlibrary > div.pl-subsettings > div > div > svg:hover, #pocketlibrary > div.pl-subsettings > div > div > svg:focus {
+  background: #3c3c3c;
+}
+#pocketlibrary > div.pl-subsettings > div.pl-textsize > div > span {
+  width: 4ch;
+  text-align: center;
+  padding: 0 calc(0.2 * var(--_rem));
+}
+#pocketlibrary div.pl-fontswap.pl-serif .pl-sans, #pocketlibrary div.pl-fontswap.pl-sans .pl-serif {
+  color: rgba(237, 237, 237, 0.4);
+}/*# sourceMappingURL=1-1-styles-main.part.css.map */
