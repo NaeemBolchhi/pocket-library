@@ -1,4 +1,4 @@
-# Pocket Library
+# <img src="icon.svg" alt="Pocket Library Logo" style="width:72px"> Pocket Library
 
 Download articles, summaries, analyses, and notes from various English Literature websites as PDF.
 
