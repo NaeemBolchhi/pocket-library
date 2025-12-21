@@ -4,7 +4,11 @@ function addpanel() {
     
     maindiv.id = 'pocketlibrary';
     maindiv.innerHTML = `
-        <div class="pl-settings">${getIcon.settings}</div>
+        <div class="pl-settings">
+            <a title="Pocket Library" href="https://naeembolchhi.github.io/pocket-library/" target="_blank">
+                ${getIcon.logo}
+            </a>
+        </div>
         <div class="pl-download">
             <div>
                 ${getIcon.download}
@@ -18,6 +22,14 @@ function addpanel() {
                     ${getIcon.textminus}
                     <span>${localStorage.pl_fontsize}</span>
                     ${getIcon.textplus}
+                </div>
+            </div>
+            <div class="pl-margin pl-${localStorage.pl_margin}">
+                ${getIcon.margin}
+                <div>
+                    <span class="pl-normal">Normal</span>
+                    <span class="pl-narrow">Narrow</span>
+                    <span class="pl-wide">Wide</span>
                 </div>
             </div>
             <div class="pl-fontswap pl-${localStorage.pl_fontvariant}">

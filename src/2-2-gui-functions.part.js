@@ -34,6 +34,25 @@ function fontsize(dir) {
     localStorage.pl_fontsize = newSize.toString();
 }
 
+// Change margin
+function marginswap(which) {
+    let margin = document.querySelector('#pocketlibrary .pl-margin');
+
+    if (which.classList.contains('pl-normal')) {
+        margin.classList.remove('pl-narrow','pl-wide');
+        margin.classList.add('pl-normal');
+        localStorage.pl_margin = 'normal';
+    } else if (which.classList.contains('pl-narrow')) {
+        margin.classList.remove('pl-normal','pl-wide');
+        margin.classList.add('pl-narrow');
+        localStorage.pl_margin = 'narrow';
+    } else if (which.classList.contains('pl-wide')) {
+        margin.classList.remove('pl-normal','pl-narrow');
+        margin.classList.add('pl-wide');
+        localStorage.pl_margin = 'wide';
+    }
+}
+
 // Event listener
 document.addEventListener('click', (e) => {
     if (e.target.closest('.pl-fontswap.pl-serif > div > svg.pl-sans')) {
@@ -46,5 +65,9 @@ document.addEventListener('click', (e) => {
         fontsize('-');
     } else if (e.target.closest('.pl-textsize .pl-plus')) {
         fontsize('+');
+    }
+
+    if (e.target.closest('.pl-margin > div > span')) {
+        marginswap(e.target);
     }
 });

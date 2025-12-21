@@ -14,17 +14,6 @@ echo Setting update meta ...
 type "%SOURCE%\0-0-us-info.part.js" >> "%OUTPUT_META%"
 
 :: Loop through all '0' files
-:: for %%f in ("%SOURCE%\0-*.part.js") do (
-::     if /i not "%%f"=="%OUTPUT%" (
-::         echo Adding %%f ...
-::         type "%%f" >> "%OUTPUT%"
-::         (
-::         echo(
-::         ) >> "%OUTPUT%"
-::     )
-:: )
-
-:: Loop through all '0' files
 for %%f in ("%SOURCE%\0-*.part.js") do (
     if /i not "%%f"=="%OUTPUT%" (
         echo Adding %%f ...
@@ -54,6 +43,17 @@ type "%SOURCE%\1-2-styles-end.part.js" >> "%OUTPUT%"
 
 :: Loop through all '2' files
 for %%f in ("%SOURCE%\2-*.part.js") do (
+    if /i not "%%f"=="%OUTPUT%" (
+        echo Adding %%f ...
+        type "%%f" >> "%OUTPUT%"
+        (
+        echo(
+        ) >> "%OUTPUT%"
+    )
+)
+
+:: Loop through all '3' files
+for %%f in ("%SOURCE%\3-*.part.js") do (
     if /i not "%%f"=="%OUTPUT%" (
         echo Adding %%f ...
         type "%%f" >> "%OUTPUT%"
