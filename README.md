@@ -2,12 +2,12 @@
 
 Download articles, summaries, analyses, and notes from various English Literature websites as PDF.
 
-## Supported Websites
-- [CliffsNotes](https://www.cliffsnotes.com/) (in progress)
-
 ## Introduction
 
 Pocket Library uses PDFMake.js to dynamically convert content from supported websites into convenient PDF files, suitable for reading on digital devices and printing. Users can choose between a Serif and a Sans-serif font when downloading.
+
+## Supported Websites
+- [CliffsNotes](https://www.cliffsnotes.com/) (in progress)
 
 ## Install
 
