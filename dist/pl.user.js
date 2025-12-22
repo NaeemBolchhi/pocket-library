@@ -20,7 +20,6 @@ const libfonts = 'https://naeembolchhi.github.io/pocket-library/lib/vfs_fonts.mi
       getIcon = {
             "logo": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 300 300" fill="currentColor"><path d="m284.11 232.24.02-.01-.1-.05.08.06zm-143.84 43.47-84.84-63.48-39.57 20L149.99 300l133.96-67.68-143.68 43.39z"/><path d="m284.14 232.29-.07-.08.05.09.02-.01zm-150.05-8.33-58.01-88.67-44.03 5.25L134.92 250.1l149.02-17.78-149.85-8.36z"/><path d="M146.01 173.14 121.83 70.01 78.64 59.89l59.19 138.14 146.31 34.3-138.13-59.19z"/><path d="m275.77 82.28 8.37 150.05-125.76-82.28L150.01 0l125.76 82.28z"/></svg>`,
             "download": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 96 96" fill="currentColor"><path d="M0 0h96v96H0z" fill="none"/><path d="M8.47 96h79.06V84.71H8.47V96Zm79.06-62.12H64.94V0H31.06v33.88H8.47L48 73.41l39.53-39.53Z"/></svg>`,
-            // "settings": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 96 96" fill="currentColor"><path d="M0 0h96v96H0z" fill="none"/><path d="M83.7 52.7c.2-1.5.3-3.05.3-4.7s-.1-3.2-.35-4.7l10.15-7.9c.9-.7 1.15-2.05.6-3.05l-9.6-16.6c-.6-1.1-1.85-1.45-2.95-1.1l-11.95 4.8c-2.5-1.9-5.15-3.5-8.1-4.7L60 2.05C59.8.85 58.8 0 57.6 0H38.4c-1.2 0-2.15.85-2.35 2.05l-1.8 12.7c-2.95 1.2-5.65 2.85-8.1 4.7l-11.95-4.8c-1.1-.4-2.35 0-2.95 1.1L1.7 32.35c-.6 1.05-.4 2.35.6 3.05l10.15 7.9C12.2 44.8 12 46.45 12 48s.1 3.2.35 4.7L2.2 60.6c-.9.7-1.15 2.05-.6 3.05l9.6 16.6c.6 1.1 1.85 1.45 2.95 1.1l11.95-4.8c2.5 1.9 5.15 3.5 8.1 4.7l1.8 12.7c.25 1.2 1.2 2.05 2.4 2.05h19.2c1.2 0 2.2-.85 2.35-2.05l1.8-12.7c2.95-1.2 5.65-2.8 8.1-4.7l11.95 4.8c1.1.4 2.35 0 2.95-1.1l9.6-16.6c.6-1.1.35-2.35-.6-3.05L83.7 52.7ZM48 66c-9.9 0-18-8.1-18-18s8.1-18 18-18 18 8.1 18 18-8.1 18-18 18Z"/></svg>`,
             "textplus": `<svg class="pl-plus" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 96 96" fill="currentColor"><path d="M0 0h96v96H0z" fill="none"/><path d="M82.63 43.54H96v8.92H82.63v13.37h-8.92V52.46H60.34v-8.92h13.37V30.17h8.92v13.37ZM15.69 62.5H39.7l5.29 15.22h10.28L32.92 18.28H22.34L0 77.72h10.28l5.41-15.22Zm9.39-26.27 2.32-6.9h.48l2.32 6.9 6.3 17.71H18.79l6.3-17.71Z"/></svg>`,
             "textminus": `<svg class="pl-minus" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 96 96" fill="currentColor"><path d="M0 0h96v96H0z" fill="none"/><path d="M96 43.54v8.92H60.33v-8.92H96ZM15.69 62.5H39.7l5.29 15.22h10.28L32.92 18.28H22.34L0 77.72h10.28l5.41-15.22Zm9.39-26.27 2.32-6.9h.48l2.32 6.9 6.3 17.71H18.79l6.3-17.71Z"/></svg>`,
             "textsize": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 96 96" fill="currentColor"><path d="M0 0h96v96H0z" fill="none"/><path d="M0 10.11v15.16h25.26v60.62h15.16V25.26h25.26V10.1H0Zm95.99 25.26H50.52v15.16h15.16V85.9h15.16V50.53H96V35.37h-.01Z"/></svg>`,
@@ -40,6 +39,7 @@ if (!localStorage.pl_fontsize) {
 if (!localStorage.pl_margin) {
       localStorage.pl_margin = 'normal';
 }
+
 // Define styles
 const mainStyles = `
 #pocketlibrary {
@@ -194,7 +194,7 @@ const mainStyles = `
 #pocketlibrary div.pl-fontswap.pl-serif .pl-sans, #pocketlibrary div.pl-fontswap.pl-sans .pl-serif {
   color: rgba(237, 237, 237, 0.4);
 }
-#pocketlibrary div.pl-margin.pl-normal .pl-narrow, #pocketlibrary div.pl-margin.pl-normal .pl-wide, #pocketlibrary div.pl-margin.pl-narrow .pl-normal, #pocketlibrary div.pl-margin.pl-narrow .pl-wide, #pocketlibrary div.pl-margin.pl-wide .pl-normal, #pocketlibrary div.pl-margin.pl-wide .pl-narrow {
+#pocketlibrary div.pl-margin.pl-normal .pl-narrow, #pocketlibrary div.pl-margin.pl-normal .pl-moderate, #pocketlibrary div.pl-margin.pl-narrow .pl-normal, #pocketlibrary div.pl-margin.pl-narrow .pl-moderate, #pocketlibrary div.pl-margin.pl-moderate .pl-normal, #pocketlibrary div.pl-margin.pl-moderate .pl-narrow {
   color: rgba(237, 237, 237, 0.4);
 }/*# sourceMappingURL=1-1-styles-main.part.css.map */
 `;
@@ -260,7 +260,7 @@ function addpanel() {
                 <div>
                     <span class="pl-normal">Normal</span>
                     <span class="pl-narrow">Narrow</span>
-                    <span class="pl-wide">Wide</span>
+                    <span class="pl-moderate">Moderate</span>
                 </div>
             </div>
             <div class="pl-fontswap pl-${localStorage.pl_fontvariant}">
@@ -318,17 +318,17 @@ function marginswap(which) {
     let margin = document.querySelector('#pocketlibrary .pl-margin');
 
     if (which.classList.contains('pl-normal')) {
-        margin.classList.remove('pl-narrow','pl-wide');
+        margin.classList.remove('pl-narrow','pl-moderate');
         margin.classList.add('pl-normal');
         localStorage.pl_margin = 'normal';
     } else if (which.classList.contains('pl-narrow')) {
-        margin.classList.remove('pl-normal','pl-wide');
+        margin.classList.remove('pl-normal','pl-moderate');
         margin.classList.add('pl-narrow');
         localStorage.pl_margin = 'narrow';
-    } else if (which.classList.contains('pl-wide')) {
+    } else if (which.classList.contains('pl-moderate')) {
         margin.classList.remove('pl-normal','pl-narrow');
-        margin.classList.add('pl-wide');
-        localStorage.pl_margin = 'wide';
+        margin.classList.add('pl-moderate');
+        localStorage.pl_margin = 'moderate';
     }
 }
 
@@ -370,16 +370,37 @@ pdfMake.addFonts({
 // PDFMake content variable
 let docContent = [];
 
+// Set margin
+function getMargin() {
+    if (localStorage.pl_margin.match(/normal/i)) {
+        return 1*72;
+    } else if (localStorage.pl_margin.match(/narrow/i)) {
+        return .5*72;
+    } else if (localStorage.pl_margin.match(/moderate/i)) {
+        return [.75*72, 1*72];
+    }
+}
+
 // Main document definition
 function docDefinition() {
-    let fs = localStorage.pl_fontsize,
+    let fs = parseFloat(localStorage.pl_fontsize),
         fn = `source${localStorage.pl_fontvariant.replace(/^s/,'S')}`;
 
     return {
+        language: 'en-US',
+        info: {
+            title: '',
+            author: '',
+            subject: '',
+            keywords: '',
+            creator: 'Pocket Library',
+            producer: 'pdfmake'
+        },
         pageSize: {
             width: 210/25.4*72,
             height: 297/25.4*72
         },
+        pageMargins: getMargin(),
         pageOrientation: 'portrait',
         defaultStyle: {
               font: fn,
@@ -387,13 +408,26 @@ function docDefinition() {
               alignment: 'justify'
         },
         content: docContent,
-        styles: {}
+        styles: {
+            h1: {
+                fontSize: fs*(16/12),
+                bold: true,
+                alignment: 'left'
+            }
+        }
     };
 }
 
 // Push text and styles
 const addContent = {
-    basic: function (text, styles) {
-
+    basic: function (texts, styles) {
+        docContent.push(
+            {text: texts, style: styles}
+        );
     }
 };
+
+// Start 
+if (window.location.origin.match(/www\.cliffsnotes\.com/)) {
+    pdfMake.createPdf(docDefinition).open();
+}

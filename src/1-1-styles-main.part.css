@@ -150,6 +150,6 @@
 #pocketlibrary div.pl-fontswap.pl-serif .pl-sans, #pocketlibrary div.pl-fontswap.pl-sans .pl-serif {
   color: rgba(237, 237, 237, 0.4);
 }
-#pocketlibrary div.pl-margin.pl-normal .pl-narrow, #pocketlibrary div.pl-margin.pl-normal .pl-wide, #pocketlibrary div.pl-margin.pl-narrow .pl-normal, #pocketlibrary div.pl-margin.pl-narrow .pl-wide, #pocketlibrary div.pl-margin.pl-wide .pl-normal, #pocketlibrary div.pl-margin.pl-wide .pl-narrow {
+#pocketlibrary div.pl-margin.pl-normal .pl-narrow, #pocketlibrary div.pl-margin.pl-normal .pl-moderate, #pocketlibrary div.pl-margin.pl-narrow .pl-normal, #pocketlibrary div.pl-margin.pl-narrow .pl-moderate, #pocketlibrary div.pl-margin.pl-moderate .pl-normal, #pocketlibrary div.pl-margin.pl-moderate .pl-narrow {
   color: rgba(237, 237, 237, 0.4);
 }/*# sourceMappingURL=1-1-styles-main.part.css.map */

@@ -1,3 +1,7 @@
+// :not(.pl-pdfmake):not(.pl-fonts) {
+//         display: none;
+// }
+
 #pocketlibrary {
     &, & * {
         box-sizing: border-box;
@@ -163,9 +167,9 @@
         }
     }
     div.pl-margin {
-        &.pl-normal .pl-narrow, &.pl-normal .pl-wide,
-        &.pl-narrow .pl-normal, &.pl-narrow .pl-wide,
-        &.pl-wide .pl-normal, &.pl-wide .pl-narrow {
+        &.pl-normal .pl-narrow, &.pl-normal .pl-moderate,
+        &.pl-narrow .pl-normal, &.pl-narrow .pl-moderate,
+        &.pl-moderate .pl-normal, &.pl-moderate .pl-narrow {
             color: #ededed66;
         }
     }

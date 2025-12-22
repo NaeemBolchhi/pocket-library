@@ -17,16 +17,37 @@ pdfMake.addFonts({
 // PDFMake content variable
 let docContent = [];
 
+// Set margin
+function getMargin() {
+    if (localStorage.pl_margin.match(/normal/i)) {
+        return 1*72;
+    } else if (localStorage.pl_margin.match(/narrow/i)) {
+        return .5*72;
+    } else if (localStorage.pl_margin.match(/moderate/i)) {
+        return [.75*72, 1*72];
+    }
+}
+
 // Main document definition
 function docDefinition() {
-    let fs = localStorage.pl_fontsize,
+    let fs = parseFloat(localStorage.pl_fontsize),
         fn = `source${localStorage.pl_fontvariant.replace(/^s/,'S')}`;
 
     return {
+        language: 'en-US',
+        info: {
+            title: '',
+            author: '',
+            subject: '',
+            keywords: '',
+            creator: 'Pocket Library',
+            producer: 'pdfmake'
+        },
         pageSize: {
             width: 210/25.4*72,
             height: 297/25.4*72
         },
+        pageMargins: getMargin(),
         pageOrientation: 'portrait',
         defaultStyle: {
               font: fn,
@@ -34,13 +55,21 @@ function docDefinition() {
               alignment: 'justify'
         },
         content: docContent,
-        styles: {}
+        styles: {
+            h1: {
+                fontSize: fs*(16/12),
+                bold: true,
+                alignment: 'left'
+            }
+        }
     };
 }
 
 // Push text and styles
 const addContent = {
-    basic: function (text, styles) {
-
+    basic: function (texts, styles) {
+        docContent.push(
+            {text: texts, style: styles}
+        );
     }
 };

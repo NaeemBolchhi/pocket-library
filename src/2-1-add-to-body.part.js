@@ -29,7 +29,7 @@ function addpanel() {
                 <div>
                     <span class="pl-normal">Normal</span>
                     <span class="pl-narrow">Narrow</span>
-                    <span class="pl-wide">Wide</span>
+                    <span class="pl-moderate">Moderate</span>
                 </div>
             </div>
             <div class="pl-fontswap pl-${localStorage.pl_fontvariant}">

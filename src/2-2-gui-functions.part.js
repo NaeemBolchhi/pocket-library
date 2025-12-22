@@ -39,17 +39,17 @@ function marginswap(which) {
     let margin = document.querySelector('#pocketlibrary .pl-margin');
 
     if (which.classList.contains('pl-normal')) {
-        margin.classList.remove('pl-narrow','pl-wide');
+        margin.classList.remove('pl-narrow','pl-moderate');
         margin.classList.add('pl-normal');
         localStorage.pl_margin = 'normal';
     } else if (which.classList.contains('pl-narrow')) {
-        margin.classList.remove('pl-normal','pl-wide');
+        margin.classList.remove('pl-normal','pl-moderate');
         margin.classList.add('pl-narrow');
         localStorage.pl_margin = 'narrow';
-    } else if (which.classList.contains('pl-wide')) {
+    } else if (which.classList.contains('pl-moderate')) {
         margin.classList.remove('pl-normal','pl-narrow');
-        margin.classList.add('pl-wide');
-        localStorage.pl_margin = 'wide';
+        margin.classList.add('pl-moderate');
+        localStorage.pl_margin = 'moderate';
     }
 }
 
