@@ -1,3 +1,7 @@
+html:not(.pl-pdfmake) #pocketlibrary, html:not(.pl-fonts) #pocketlibrary {
+  display: none;
+}
+
 #pocketlibrary {
   --_rem: 20px;
   display: flex;

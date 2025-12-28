@@ -70,4 +70,8 @@ document.addEventListener('click', (e) => {
     if (e.target.closest('.pl-margin > div > span')) {
         marginswap(e.target);
     }
+
+    if (e.target.closest('.pl-download')) {
+        pdfMake.createPdf(docDefinition).open();
+    }
 });

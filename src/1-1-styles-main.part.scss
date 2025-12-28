@@ -1,6 +1,8 @@
-// :not(.pl-pdfmake):not(.pl-fonts) {
-//         display: none;
-// }
+html:not(.pl-pdfmake), html:not(.pl-fonts) {
+    #pocketlibrary {
+        display: none;
+    }
+}
 
 #pocketlibrary {
     &, & * {
