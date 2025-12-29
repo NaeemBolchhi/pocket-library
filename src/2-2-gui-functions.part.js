@@ -72,6 +72,6 @@ document.addEventListener('click', (e) => {
     }
 
     if (e.target.closest('.pl-download')) {
-        pdfMake.createPdf(docDefinition).open();
+        pdfMake.createPdf(docDefinition()).download(getFilename());
     }
 });

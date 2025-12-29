@@ -14,7 +14,6 @@ function addlib() {
     document.head.appendChild(mainjs);
     document.head.appendChild(fontsjs);
 }
-addlib();
 
 // Add styles to DOM head
 function addstyles() {
@@ -26,4 +25,3 @@ function addstyles() {
 
     document.head.appendChild(maincss);
 }
-addstyles();

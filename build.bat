@@ -63,4 +63,15 @@ for %%f in ("%SOURCE%\3-*.part.js") do (
     )
 )
 
+:: Loop through all '4' files
+for %%f in ("%SOURCE%\4-*.part.js") do (
+    if /i not "%%f"=="%OUTPUT%" (
+        echo Adding %%f ...
+        type "%%f" >> "%OUTPUT%"
+        (
+        echo(
+        ) >> "%OUTPUT%"
+    )
+)
+
 timeout 1

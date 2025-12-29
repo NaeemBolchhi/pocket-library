@@ -1,18 +1,20 @@
 // Add fonts to pdfmake
-pdfMake.addFonts({
-    sourceSans: {
-        normal: 'sans400',
-        bold: 'sans700',
-        italics: 'sans400i',
-        bolditalics: 'sans700i'
-    },
-    sourceSerif: {
-        normal: 'serif400',
-        bold: 'serif700',
-        italics: 'serif400i',
-        bolditalics: 'serif700i'
-    }
-});
+function sourceFonts() {
+    pdfMake.addFonts({
+        sourceSans: {
+            normal: 'sans400',
+            bold: 'sans700',
+            italics: 'sans400i',
+            bolditalics: 'sans700i'
+        },
+        sourceSerif: {
+            normal: 'serif400',
+            bold: 'serif700',
+            italics: 'serif400i',
+            bolditalics: 'serif700i'
+        }
+    });
+}
 
 // PDFMake content variable
 let docContent = [];
@@ -147,5 +149,5 @@ const addContent = {
 // Parse HTML and make JSON that pdfmake understands (to pass as texts in addContent() function)
 // Each newline block needs to be parsed separately
 function spitTexts(htmlblock) {
-
+    
 }

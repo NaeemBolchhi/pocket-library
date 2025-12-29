@@ -44,4 +44,3 @@ function addpanel() {
 
     document.body.appendChild(maindiv);
 }
-addpanel();
