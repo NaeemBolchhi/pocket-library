@@ -38,10 +38,9 @@ function docDefinition() {
     return {
         language: 'en-US',
         info: {
-            title: '',
-            author: '',
-            subject: '',
-            keywords: '',
+            title: pl_var.titleString,
+            author: pl_var.authorString,
+            subject: pl_var.hostString,
             creator: 'Pocket Library',
             producer: 'pdfmake'
         },
@@ -146,8 +145,98 @@ const addContent = {
     }
 };
 
+// Wrap naked text in span blocks
+function wrapNakedTextInSpans(container) {
+    const walker = document.createTreeWalker(
+        container,
+        NodeFilter.SHOW_TEXT,
+        {
+            acceptNode(node) {
+                // Skip if already wrapped
+                if (node.parentNode.tagName === 'SPAN') {
+                    return NodeFilter.FILTER_REJECT;
+                }
+
+                // Skip pure line breaks like "\n" or "\r\n"
+                if (/^[\r\n]+$/.test(node.nodeValue)) {
+                    return NodeFilter.FILTER_REJECT;
+                }
+
+                return NodeFilter.FILTER_ACCEPT;
+            }
+        }
+    );
+
+    const textNodes = [];
+    let current;
+
+    while (current = walker.nextNode()) {
+        textNodes.push(current);
+    }
+
+    textNodes.forEach(textNode => {
+        const span = document.createElement('span');
+        span.textContent = textNode.nodeValue; // preserves spaces
+        textNode.parentNode.replaceChild(span, textNode);
+    });
+}
+
 // Parse HTML and make JSON that pdfmake understands (to pass as texts in addContent() function)
 // Each newline block needs to be parsed separately
 function spitTexts(htmlblock) {
-    
+    let texts = '',
+        styles = [];
+
+    // Spit h2
+    if (htmlblock.tagName.includes('H2')) {
+        texts += htmlblock.textContent;
+        styles.push('h2');
+    }
+
+    // Spit span, a
+    if (htmlblock.tagName.includes('SPAN') || htmlblock.tagName.includes('A') || htmlblock.tagName.includes('P')) {
+        texts += htmlblock.textContent;
+    }
+
+    // Spit i, em
+    if (htmlblock.tagName.includes('I') || htmlblock.tagName.includes('EM')) {
+        texts += htmlblock.textContent;
+        styles.push('italic');
+    }
+
+    // Spit b, strong
+    if (htmlblock.tagName.includes('B') || htmlblock.tagName.includes('STRONG')) {
+        texts += htmlblock.textContent;
+        styles.push('bold');
+    }
+
+    // Spit u
+    if (htmlblock.tagName.includes('U')) {
+        texts += htmlblock.textContent;
+        styles.push('underlined');
+    }
+
+    return {text: texts, style: styles};
+    // console.log(JSON.stringify({text: texts}));
+}
+
+// Split up htmlblocks and send one at a time
+function multiBlock(htmlblock) {
+    let returnText = [];
+
+    // Fix naked texts after flattening html
+    if (!htmlblock.tagName.includes('SPAN') && !htmlblock.tagName.includes('A') && !htmlblock.tagName.includes('I') && !htmlblock.tagName.includes('EM') && !htmlblock.tagName.includes('B') && !htmlblock.tagName.includes('STRONG') && !htmlblock.tagName.includes('U')) {
+        wrapNakedTextInSpans(htmlblock);
+    }
+
+    // If multi child
+    if (htmlblock.children.length > 1) {
+        for (let x = 0; x < htmlblock.children.length; x++) {
+            returnText.push(spitTexts(htmlblock.children[x]));
+        }
+    } else {
+        returnText.push(spitTexts(htmlblock));
+    }
+
+    return {text: returnText};
 }

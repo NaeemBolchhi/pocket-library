@@ -16,7 +16,7 @@
 // Globally available constants
 const libfonts = 'https://naeembolchhi.github.io/pocket-library/lib/vfs_fonts.min.js',
       libmain = 'https://naeembolchhi.github.io/pocket-library/lib/pdfmake.min.js',
-      
+
       getIcon = {
             "logo": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 300 300" fill="currentColor"><path d="m284.11 232.24.02-.01-.1-.05.08.06zm-143.84 43.47-84.84-63.48-39.57 20L149.99 300l133.96-67.68-143.68 43.39z"/><path d="m284.14 232.29-.07-.08.05.09.02-.01zm-150.05-8.33-58.01-88.67-44.03 5.25L134.92 250.1l149.02-17.78-149.85-8.36z"/><path d="M146.01 173.14 121.83 70.01 78.64 59.89l59.19 138.14 146.31 34.3-138.13-59.19z"/><path d="m275.77 82.28 8.37 150.05-125.76-82.28L150.01 0l125.76 82.28z"/></svg>`,
             "download": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 96 96" fill="currentColor"><path d="M0 0h96v96H0z" fill="none"/><path d="M8.47 96h79.06V84.71H8.47V96Zm79.06-62.12H64.94V0H31.06v33.88H8.47L48 73.41l39.53-39.53Z"/></svg>`,
@@ -45,8 +45,9 @@ if (!localStorage.pl_margin) {
       localStorage.pl_margin = 'normal';
 }
 
-// Changing let variables
-let pl_ts = '', pl_as = '', pl_running = false;
+// Changing variable in one place
+const pl_var = {};
+pl_var.pl_running = false;
 
 // Define styles
 const mainStyles = `
@@ -360,7 +361,7 @@ document.addEventListener('click', (e) => {
     }
 
     if (e.target.closest('.pl-download')) {
-        pdfMake.createPdf(docDefinition()).download(getFilename());
+        prepareDownload();
     }
 });
 
@@ -404,10 +405,9 @@ function docDefinition() {
     return {
         language: 'en-US',
         info: {
-            title: '',
-            author: '',
-            subject: '',
-            keywords: '',
+            title: pl_var.titleString,
+            author: pl_var.authorString,
+            subject: pl_var.hostString,
             creator: 'Pocket Library',
             producer: 'pdfmake'
         },
@@ -512,52 +512,146 @@ const addContent = {
     }
 };
 
+// Wrap naked text in span blocks
+function wrapNakedTextInSpans(container) {
+    const walker = document.createTreeWalker(
+        container,
+        NodeFilter.SHOW_TEXT,
+        {
+            acceptNode(node) {
+                // Skip if already wrapped
+                if (node.parentNode.tagName === 'SPAN') {
+                    return NodeFilter.FILTER_REJECT;
+                }
+
+                // Skip pure line breaks like "\n" or "\r\n"
+                if (/^[\r\n]+$/.test(node.nodeValue)) {
+                    return NodeFilter.FILTER_REJECT;
+                }
+
+                return NodeFilter.FILTER_ACCEPT;
+            }
+        }
+    );
+
+    const textNodes = [];
+    let current;
+
+    while (current = walker.nextNode()) {
+        textNodes.push(current);
+    }
+
+    textNodes.forEach(textNode => {
+        const span = document.createElement('span');
+        span.textContent = textNode.nodeValue; // preserves spaces
+        textNode.parentNode.replaceChild(span, textNode);
+    });
+}
+
 // Parse HTML and make JSON that pdfmake understands (to pass as texts in addContent() function)
 // Each newline block needs to be parsed separately
 function spitTexts(htmlblock) {
-    
+    let texts = '',
+        styles = [];
+
+    // Spit h2
+    if (htmlblock.tagName.includes('H2')) {
+        texts += htmlblock.textContent;
+        styles.push('h2');
+    }
+
+    // Spit span, a
+    if (htmlblock.tagName.includes('SPAN') || htmlblock.tagName.includes('A') || htmlblock.tagName.includes('P')) {
+        texts += htmlblock.textContent;
+    }
+
+    // Spit i, em
+    if (htmlblock.tagName.includes('I') || htmlblock.tagName.includes('EM')) {
+        texts += htmlblock.textContent;
+        styles.push('italic');
+    }
+
+    // Spit b, strong
+    if (htmlblock.tagName.includes('B') || htmlblock.tagName.includes('STRONG')) {
+        texts += htmlblock.textContent;
+        styles.push('bold');
+    }
+
+    // Spit u
+    if (htmlblock.tagName.includes('U')) {
+        texts += htmlblock.textContent;
+        styles.push('underlined');
+    }
+
+    return {text: texts, style: styles};
+    // console.log(JSON.stringify({text: texts}));
 }
 
-// Start 
-function getFilename() {
-    const SITE_CONFIGS = {
-        "www.cliffsnotes.com": {
-            title: '.title-wrapper h1',
-            author: '.title-wrapper h2'
+// Split up htmlblocks and send one at a time
+function multiBlock(htmlblock) {
+    let returnText = [];
+
+    // Fix naked texts after flattening html
+    if (!htmlblock.tagName.includes('SPAN') && !htmlblock.tagName.includes('A') && !htmlblock.tagName.includes('I') && !htmlblock.tagName.includes('EM') && !htmlblock.tagName.includes('B') && !htmlblock.tagName.includes('STRONG') && !htmlblock.tagName.includes('U')) {
+        wrapNakedTextInSpans(htmlblock);
+    }
+
+    // If multi child
+    if (htmlblock.children.length > 1) {
+        for (let x = 0; x < htmlblock.children.length; x++) {
+            returnText.push(spitTexts(htmlblock.children[x]));
         }
-    };
+    } else {
+        returnText.push(spitTexts(htmlblock));
+    }
 
-    let pl_title = document.querySelector('.title-wrapper h1').textContent,
-        pl_author = document.querySelector('.title-wrapper h2').textContent;
-
-    console.log(`PL - ${pl_title} (${pl_author})`);
-    return `PL - ${pl_title} (${pl_author})`;
+    return {text: returnText};
 }
 
+// PDF Filename
+function getFilename() {
+    let pl_title = document.querySelector(pl_var.titleString).textContent,
+        pl_author = document.querySelector(pl_var.authorString).textContent;
+
+    return `${pl_var.hostString} - ${pl_title} (${pl_author})`;
+}
+
+// Page list
+function getPagelist() {
+
+}
+/* CliffsNotes */
 if (window.location.hostname.includes('cliffsnotes.com')) {
-    // pl_ts = '.title-wrapper h1';
-    // pl_as = '.title-wrapper h2';
+    // Set filename variables
+    pl_var.titleString = '.title-wrapper h1';
+    pl_var.authorString = '.title-wrapper h2';
+    pl_var.hostString = 'CliffsNotes';
+
+    // Link list
+    pl_var.linkString = '.secondary-navigation ul a';
+
+    function prepareDownload() {
+        // Get content from current page
+        let content = document.querySelectorAll('.copy > *');
+        for (let x = 0; x < content.length; x++) {
+            docContent.push(multiBlock(content[x]));
+        }
+
+        pdfMake.createPdf(docDefinition()).download(getFilename());
+    }
 }
-// Add the event listener
+
+// Listen for loading of libraries
 window.addEventListener('pl_ready_pdfmake', (e) => {
-    console.log('The pl_ready_pdfmake event was detected!');
-
-    // Access the data sent in the dispatch
-    const data = e.detail;
     runAll();
-    console.log('Payload received:', data);
+    console.log('PDFMake loaded at ', e.detail);
 });
-
 window.addEventListener('pl_ready_fonts', (e) => {
-    console.log('The pl_ready_fonts event was detected!');
-
-    // Access the data sent in the dispatch
-    const data = e.detail;
     runAll();
-    console.log('Payload received:', data);
+    console.log('VFS Fonts loaded at', e.detail);
 });
 
-// DOM is ready
+// Run when DOM is ready
 if (document.readyState === "complete" || document.readyState === "interactive") {
     addlib();
     addstyles();
@@ -569,15 +663,15 @@ if (document.readyState === "complete" || document.readyState === "interactive")
     });
 }
 
-// Main runner when DOM ready and lib loaded
+// Main runner
 function runAll() {
-    // if (pl_running === true ||
-        // !document.documentElement.classList.contains('pl-pdfmake') ||
-        // !document.documentElement.classList.contains('pl-fonts')) {return;}
+    if (pl_var.pl_running === true ||
+        !document.documentElement.classList.contains('pl-pdfmake') ||
+        !document.documentElement.classList.contains('pl-fonts')) {return;}
 
     sourceFonts();
     addpanel();
 
-    pl_running = true;
+    pl_var.pl_running = true;
 }
 

@@ -1,7 +1,7 @@
 // Globally available constants
 const libfonts = 'https://naeembolchhi.github.io/pocket-library/lib/vfs_fonts.min.js',
       libmain = 'https://naeembolchhi.github.io/pocket-library/lib/pdfmake.min.js',
-      
+
       getIcon = {
             "logo": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 300 300" fill="currentColor"><path d="m284.11 232.24.02-.01-.1-.05.08.06zm-143.84 43.47-84.84-63.48-39.57 20L149.99 300l133.96-67.68-143.68 43.39z"/><path d="m284.14 232.29-.07-.08.05.09.02-.01zm-150.05-8.33-58.01-88.67-44.03 5.25L134.92 250.1l149.02-17.78-149.85-8.36z"/><path d="M146.01 173.14 121.83 70.01 78.64 59.89l59.19 138.14 146.31 34.3-138.13-59.19z"/><path d="m275.77 82.28 8.37 150.05-125.76-82.28L150.01 0l125.76 82.28z"/></svg>`,
             "download": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 96 96" fill="currentColor"><path d="M0 0h96v96H0z" fill="none"/><path d="M8.47 96h79.06V84.71H8.47V96Zm79.06-62.12H64.94V0H31.06v33.88H8.47L48 73.41l39.53-39.53Z"/></svg>`,
@@ -30,5 +30,6 @@ if (!localStorage.pl_margin) {
       localStorage.pl_margin = 'normal';
 }
 
-// Changing let variables
-let pl_ts = '', pl_as = '', pl_running = false;
+// Changing variable in one place
+const pl_var = {};
+pl_var.pl_running = false;

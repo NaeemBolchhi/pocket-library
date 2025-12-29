@@ -1,23 +1,14 @@
-// Add the event listener
+// Listen for loading of libraries
 window.addEventListener('pl_ready_pdfmake', (e) => {
-    console.log('The pl_ready_pdfmake event was detected!');
-
-    // Access the data sent in the dispatch
-    const data = e.detail;
     runAll();
-    console.log('Payload received:', data);
+    console.log('PDFMake loaded at ', e.detail);
 });
-
 window.addEventListener('pl_ready_fonts', (e) => {
-    console.log('The pl_ready_fonts event was detected!');
-
-    // Access the data sent in the dispatch
-    const data = e.detail;
     runAll();
-    console.log('Payload received:', data);
+    console.log('VFS Fonts loaded at', e.detail);
 });
 
-// DOM is ready
+// Run when DOM is ready
 if (document.readyState === "complete" || document.readyState === "interactive") {
     addlib();
     addstyles();
@@ -29,14 +20,14 @@ if (document.readyState === "complete" || document.readyState === "interactive")
     });
 }
 
-// Main runner when DOM ready and lib loaded
+// Main runner
 function runAll() {
-    // if (pl_running === true ||
-        // !document.documentElement.classList.contains('pl-pdfmake') ||
-        // !document.documentElement.classList.contains('pl-fonts')) {return;}
+    if (pl_var.pl_running === true ||
+        !document.documentElement.classList.contains('pl-pdfmake') ||
+        !document.documentElement.classList.contains('pl-fonts')) {return;}
 
     sourceFonts();
     addpanel();
 
-    pl_running = true;
+    pl_var.pl_running = true;
 }
