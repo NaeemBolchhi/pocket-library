@@ -54,24 +54,24 @@ function marginswap(which) {
 }
 
 // Event listener
-document.addEventListener('click', (e) => {
-    if (e.target.closest('.pl-fontswap.pl-serif > div > svg.pl-sans')) {
-        fontswap();
-    } else if (e.target.closest('.pl-fontswap.pl-sans > div > svg.pl-serif')) {
-        fontswap();
-    }
+// document.addEventListener('click', (e) => {
+//     if (e.target.closest('.pl-fontswap.pl-serif > div > svg.pl-sans')) {
+//         fontswap();
+//     } else if (e.target.closest('.pl-fontswap.pl-sans > div > svg.pl-serif')) {
+//         fontswap();
+//     }
 
-    if (e.target.closest('.pl-textsize .pl-minus')) {
-        fontsize('-');
-    } else if (e.target.closest('.pl-textsize .pl-plus')) {
-        fontsize('+');
-    }
+//     if (e.target.closest('.pl-textsize .pl-minus')) {
+//         fontsize('-');
+//     } else if (e.target.closest('.pl-textsize .pl-plus')) {
+//         fontsize('+');
+//     }
 
-    if (e.target.closest('.pl-margin > div > span')) {
-        marginswap(e.target);
-    }
+//     if (e.target.closest('.pl-margin > div > span')) {
+//         marginswap(e.target);
+//     }
 
-    if (e.target.closest('.pl-download')) {
-        prepareDownload();
-    }
-});
+//     if (e.target.closest('.pl-download')) {
+//         prepareDownload();
+//     }
+// });

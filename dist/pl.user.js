@@ -7,15 +7,16 @@
 // @license      GPL-3.0-or-later
 // @icon         https://naeembolchhi.github.io/pocket-library/icon.svg
 // @match        http*://www.cliffsnotes.com/*
-// @run-at       document-start
+// @run-at       document-idle
 // @grant        none
 // @downloadURL  https://naeembolchhi.github.io/pocket-library/dist/pl.user.js
 // @updateURL    https://naeembolchhi.github.io/pocket-library/dist/pl.meta.js
 // ==/UserScript==
 
 // Globally available constants
-const libfonts = 'https://naeembolchhi.github.io/pocket-library/lib/vfs_fonts.min.js',
-      libmain = 'https://naeembolchhi.github.io/pocket-library/lib/pdfmake.min.js',
+const libpaged = 'https://naeembolchhi.github.io/pocket-library/lib/paged.polyfill.min.js',
+      fontsans = 'https://naeembolchhi.github.io/pocket-library/fonts/sourcesans.min.css',
+      fontserif = 'https://naeembolchhi.github.io/pocket-library/fonts/sourceserif.min.css';
 
       getIcon = {
             "logo": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 300 300" fill="currentColor"><path d="m284.11 232.24.02-.01-.1-.05.08.06zm-143.84 43.47-84.84-63.48-39.57 20L149.99 300l133.96-67.68-143.68 43.39z"/><path d="m284.14 232.29-.07-.08.05.09.02-.01zm-150.05-8.33-58.01-88.67-44.03 5.25L134.92 250.1l149.02-17.78-149.85-8.36z"/><path d="M146.01 173.14 121.83 70.01 78.64 59.89l59.19 138.14 146.31 34.3-138.13-59.19z"/><path d="m275.77 82.28 8.37 150.05-125.76-82.28L150.01 0l125.76 82.28z"/></svg>`,
@@ -51,182 +52,26 @@ pl_var.pl_running = false;
 
 // Define styles
 const mainStyles = `
-html:not(.pl-pdfmake) #pocketlibrary, html:not(.pl-fonts) #pocketlibrary {
-  display: none;
-}
-
 #pocketlibrary {
   --_rem: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  left: calc(1 * var(--_rem));
-  bottom: calc(1 * var(--_rem));
-  z-index: 9999;
-  font-size: calc(0.7 * var(--_rem));
-  line-height: 0;
-  gap: calc(0.5 * var(--_rem));
-  color: #ededed;
 }
 #pocketlibrary, #pocketlibrary * {
   box-sizing: border-box;
 }
 #pocketlibrary svg {
   overflow: visible;
-}
-#pocketlibrary > div:not(.pl-subsettings), #pocketlibrary div.pl-subsettings > div {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  line-height: 0;
-  height: calc(2.2 * var(--_rem));
-  width: calc(2.2 * var(--_rem));
-  border-radius: calc(1.1 * var(--_rem));
-  background: #161616;
-  padding: calc(0.2 * var(--_rem));
-  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
-  cursor: pointer;
-}
-#pocketlibrary > div:not(.pl-subsettings) a, #pocketlibrary div.pl-subsettings > div a {
-  height: 100%;
-  width: 100%;
-  color: inherit;
-}
-#pocketlibrary > div:not(.pl-subsettings) svg, #pocketlibrary div.pl-subsettings > div svg {
-  height: 100%;
-  aspect-ratio: 1/1;
-  line-height: 0;
-  padding: calc(0.4 * var(--_rem));
-  border-radius: calc(1.1 * var(--_rem));
-}
-#pocketlibrary > div:not(.pl-subsettings) {
-  border: calc(0.1 * var(--_rem)) solid rgba(255, 255, 255, 0.1333333333);
-}
-#pocketlibrary > div:not(.pl-subsettings) svg:hover, #pocketlibrary > div:not(.pl-subsettings) svg:focus {
-  background: #3c3c3c;
-}
-#pocketlibrary > div:not(.pl-subsettings).pl-download {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: -moz-fit-content;
-  width: fit-content;
-  padding: calc(0.2 * var(--_rem));
-}
-#pocketlibrary > div:not(.pl-subsettings).pl-download > div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-  gap: calc(0.5 * var(--_rem));
-  padding: calc(0.4 * var(--_rem));
-}
-#pocketlibrary > div:not(.pl-subsettings).pl-download > div svg {
-  height: 100%;
-  aspect-ratio: 1/1;
-  padding: 0;
-}
-#pocketlibrary > div:not(.pl-subsettings).pl-download > div svg:hover, #pocketlibrary > div:not(.pl-subsettings).pl-download > div svg:focus {
-  background: unset;
-}
-#pocketlibrary > div:not(.pl-subsettings).pl-download > div:hover, #pocketlibrary > div:not(.pl-subsettings).pl-download > div:focus {
-  background: #3c3c3c;
-  border-radius: calc(1.1 * var(--_rem));
-}
-#pocketlibrary > div.pl-subsettings {
-  position: absolute;
-  left: 0;
-  bottom: calc(2.7 * var(--_rem));
-  z-index: 9999;
-  display: flex;
-  flex-direction: column-reverse;
-  gap: calc(0.5 * var(--_rem));
-}
-#pocketlibrary > div.pl-subsettings > div {
-  cursor: default;
-  position: relative;
-  gap: calc(0.5 * var(--_rem));
-  border: calc(0.1 * var(--_rem)) solid rgba(255, 255, 255, 0.1333333333);
-}
-#pocketlibrary > div.pl-subsettings > div > div {
-  border: calc(0.1 * var(--_rem)) solid rgba(255, 255, 255, 0.1333333333);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 0;
-  height: calc(2.2 * var(--_rem));
-  width: -moz-fit-content;
-  width: fit-content;
-  border-radius: calc(1.1 * var(--_rem));
-  background: #161616;
-  color: #ededed;
-  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
-  padding: calc(0.2 * var(--_rem));
-}
-#pocketlibrary > div.pl-subsettings > div > div:first-of-type {
-  margin-left: calc(0.3 * var(--_rem));
-}
-#pocketlibrary > div.pl-subsettings > div > div > svg {
-  padding: calc(0.4 * var(--_rem));
-  cursor: pointer;
-  border-radius: calc(1.1 * var(--_rem));
-}
-#pocketlibrary > div.pl-subsettings > div > div > svg:hover, #pocketlibrary > div.pl-subsettings > div > div > svg:focus {
-  background: #3c3c3c;
-}
-#pocketlibrary > div.pl-subsettings > div.pl-textsize > div > span {
-  width: 4ch;
-  text-align: center;
-  padding: 0 calc(0.2 * var(--_rem));
-}
-#pocketlibrary > div.pl-subsettings > div.pl-margin > div {
-  padding: calc(0.2 * var(--_rem));
-}
-#pocketlibrary > div.pl-subsettings > div.pl-margin > div > span {
-  width: -moz-fit-content;
-  width: fit-content;
-  padding: calc(0.4 * var(--_rem));
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: calc(1.1 * var(--_rem));
-  cursor: pointer;
-}
-#pocketlibrary > div.pl-subsettings > div.pl-margin > div > span:hover, #pocketlibrary > div.pl-subsettings > div.pl-margin > div > span:focus {
-  background: #3c3c3c;
-}
-#pocketlibrary > div.pl-subsettings > div.pl-textsize > div > span, #pocketlibrary > div.pl-subsettings > div.pl-margin > div > span {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-}
-#pocketlibrary div.pl-fontswap.pl-serif .pl-sans, #pocketlibrary div.pl-fontswap.pl-sans .pl-serif {
-  color: rgba(237, 237, 237, 0.4);
-}
-#pocketlibrary div.pl-margin.pl-normal .pl-narrow, #pocketlibrary div.pl-margin.pl-normal .pl-moderate, #pocketlibrary div.pl-margin.pl-narrow .pl-normal, #pocketlibrary div.pl-margin.pl-narrow .pl-moderate, #pocketlibrary div.pl-margin.pl-moderate .pl-normal, #pocketlibrary div.pl-margin.pl-moderate .pl-narrow {
-  color: rgba(237, 237, 237, 0.4);
 }/*# sourceMappingURL=1-1-styles-main.part.css.map */
 `;
 
 // Add links to DOM head
 function addlib() {
-    let mainjs = document.createElement('script'),
-        fontsjs = document.createElement('script');
-    
-    mainjs.src = libmain;
-    mainjs.id = 'pdfmake';
-    mainjs.setAttribute('type','text/javascript');
+    let mainjs = document.createElement('script');
 
-    fontsjs.src = libfonts;
-    fontsjs.id = 'vfs_fonts';
+    mainjs.src = libpaged;
+    mainjs.id = 'pagedjs';
     mainjs.setAttribute('type','text/javascript');
 
     document.head.appendChild(mainjs);
-    document.head.appendChild(fontsjs);
 }
 
 // Add styles to DOM head
@@ -240,6 +85,24 @@ function addstyles() {
     document.head.appendChild(maincss);
 }
 
+// Add fonts to DOM head
+function addfonts() {
+    let sSans = document.createElement('link'),
+        sSerif = document.createElement('link');
+
+    sSans.href = fontsans;
+    sSerif.href = fontserif;
+    sSans.id = 'fontSourceSans';
+    sSerif.id = 'fontSourceSerif';
+    sSans.setAttribute('rel','stylesheet');
+    sSerif.setAttribute('rel','stylesheet');
+    sSans.setAttribute('type','text/css');
+    sSerif.setAttribute('type','text/css');
+
+    document.head.appendChild(sSans);
+    document.head.appendChild(sSerif);
+}
+
 // Add panel to DOM
 function addpanel() {
     let maindiv = document.createElement('div');
@@ -250,37 +113,6 @@ function addpanel() {
             <a title="Pocket Library" href="https://naeembolchhi.github.io/pocket-library/" target="_blank">
                 ${getIcon.logo}
             </a>
-        </div>
-        <div class="pl-download">
-            <div>
-                ${getIcon.download}
-                <span>Download as PDF</span>
-            </div>
-        </div>
-        <div class="pl-subsettings">
-            <div class="pl-textsize">
-                ${getIcon.textsize}
-                <div>
-                    ${getIcon.textminus}
-                    <span>${localStorage.pl_fontsize}</span>
-                    ${getIcon.textplus}
-                </div>
-            </div>
-            <div class="pl-margin pl-${localStorage.pl_margin}">
-                ${getIcon.margin}
-                <div>
-                    <span class="pl-normal">Normal</span>
-                    <span class="pl-narrow">Narrow</span>
-                    <span class="pl-moderate">Moderate</span>
-                </div>
-            </div>
-            <div class="pl-fontswap pl-${localStorage.pl_fontvariant}">
-                ${getIcon.fontswap}
-                <div>
-                    ${getIcon.fontsans}
-                    ${getIcon.fontserif}
-                </div>
-            </div>
         </div>
     `.replace(/\n/g,'').replace(/>\s+</g,'><').replace(/^\s+/g,'').replace(/\s+$/g,'');
 
@@ -343,270 +175,29 @@ function marginswap(which) {
 }
 
 // Event listener
-document.addEventListener('click', (e) => {
-    if (e.target.closest('.pl-fontswap.pl-serif > div > svg.pl-sans')) {
-        fontswap();
-    } else if (e.target.closest('.pl-fontswap.pl-sans > div > svg.pl-serif')) {
-        fontswap();
-    }
+// document.addEventListener('click', (e) => {
+//     if (e.target.closest('.pl-fontswap.pl-serif > div > svg.pl-sans')) {
+//         fontswap();
+//     } else if (e.target.closest('.pl-fontswap.pl-sans > div > svg.pl-serif')) {
+//         fontswap();
+//     }
 
-    if (e.target.closest('.pl-textsize .pl-minus')) {
-        fontsize('-');
-    } else if (e.target.closest('.pl-textsize .pl-plus')) {
-        fontsize('+');
-    }
+//     if (e.target.closest('.pl-textsize .pl-minus')) {
+//         fontsize('-');
+//     } else if (e.target.closest('.pl-textsize .pl-plus')) {
+//         fontsize('+');
+//     }
 
-    if (e.target.closest('.pl-margin > div > span')) {
-        marginswap(e.target);
-    }
+//     if (e.target.closest('.pl-margin > div > span')) {
+//         marginswap(e.target);
+//     }
 
-    if (e.target.closest('.pl-download')) {
-        prepareDownload();
-    }
-});
+//     if (e.target.closest('.pl-download')) {
+//         prepareDownload();
+//     }
+// });
 
-// Add fonts to pdfmake
-function sourceFonts() {
-    pdfMake.addFonts({
-        sourceSans: {
-            normal: 'sans400',
-            bold: 'sans700',
-            italics: 'sans400i',
-            bolditalics: 'sans700i'
-        },
-        sourceSerif: {
-            normal: 'serif400',
-            bold: 'serif700',
-            italics: 'serif400i',
-            bolditalics: 'serif700i'
-        }
-    });
-}
-
-// PDFMake content variable
-let docContent = [];
-
-// Set margin
-function getMargin() {
-    if (localStorage.pl_margin.match(/normal/i)) {
-        return 1*72;
-    } else if (localStorage.pl_margin.match(/narrow/i)) {
-        return .5*72;
-    } else if (localStorage.pl_margin.match(/moderate/i)) {
-        return [.75*72, 1*72];
-    }
-}
-
-// Main document definition
-function docDefinition() {
-    let fs = parseFloat(localStorage.pl_fontsize),
-        fn = `source${localStorage.pl_fontvariant.replace(/^s/,'S')}`;
-
-    return {
-        language: 'en-US',
-        info: {
-            title: pl_var.titleString,
-            author: pl_var.authorString,
-            subject: pl_var.hostString,
-            creator: 'Pocket Library',
-            producer: 'pdfmake'
-        },
-        pageSize: {
-            width: 210/25.4*72,
-            height: 297/25.4*72
-        },
-        pageMargins: getMargin(),
-        pageOrientation: 'portrait',
-        defaultStyle: {
-              font: fn,
-              fontSize: fs,
-              alignment: 'justify',
-              lineHeight: 1.25
-        },
-        content: docContent,
-        styles: {
-            h1: {
-                fontSize: fs*(16/12),
-                bold: true,
-                alignment: 'left',
-                margin: [0, fs*(12/12), 0, fs*(6/12)]
-            },
-            h2: {
-                fontSize: fs*(14/12),
-                bold: true,
-                alignment: 'left',
-                margin: [0, fs*(10/12), 0, fs*(5/12)]
-            },
-            h3: {
-                bold: true,
-                alignment: 'left',
-                margin: [0, fs*(8/12), 0, fs*(4/12)]
-            },
-            list: {
-                margin: [0, fs*(5/12), 0, fs*(5/12)]
-            },
-            italic: {
-                italics: true
-            },
-            bold: {
-                bold: true
-            },
-            underline: {
-                decoration: 'underline'
-            },
-            left: {
-                alignment: 'left'
-            },
-            center: {
-                alignment: 'center'
-            },
-            right: {
-                alignment: 'right'
-            },
-            newPage: {
-                pageBreak: 'before'
-            }
-        }
-    };
-}
-
-// Push text and styles
-const addContent = {
-    _getArray: function (texts) {
-        return (Array.isArray(texts)) ? [...texts] : [texts];
-    },
-    basicReturn: function (textBlock, styles = '') {
-        return {text: textBlock, style: styles};
-    },
-    basic: function (texts, styles = '', indent = false) {
-        let textStack = this._getArray(texts);
-        if (indent === true) {
-            textStack.unshift('      ');
-        }
-
-        docContent.push({
-            style: styles,
-            preserveLeadingSpaces: indent,
-            text: textStack
-        });
-    },
-    bulletlistReturn: function (texts, styles = '', bullet = 'disc') {
-        return {
-            style: styles,
-            type: bullet, /* 'disc', 'square', 'circle', 'none' */
-            ol: this._getArray(texts)
-        };
-    },
-    bulletlist: function (texts, styles = '', bullet = 'disc') {
-        docContent.push(this.bulletlistReturn(texts, styles, bullet));
-    },
-    orderedlistReturn: function (texts, styles = '', order = 'decimal') {
-        return {
-            style: styles,
-            type: order, /* 'decimal', 'lower-alpha', 'upper-alpha', 'lower-roman', 'upper-roman', 'none' */
-            ol: this._getArray(texts)
-        };
-    },
-    orderedlist: function (texts, styles = '', order = 'decimal') {
-        docContent.push(this.orderedlistReturn(texts, styles, order));
-    }
-};
-
-// Wrap naked text in span blocks
-function wrapNakedTextInSpans(container) {
-    const walker = document.createTreeWalker(
-        container,
-        NodeFilter.SHOW_TEXT,
-        {
-            acceptNode(node) {
-                // Skip if already wrapped
-                if (node.parentNode.tagName === 'SPAN') {
-                    return NodeFilter.FILTER_REJECT;
-                }
-
-                // Skip pure line breaks like "\n" or "\r\n"
-                if (/^[\r\n]+$/.test(node.nodeValue)) {
-                    return NodeFilter.FILTER_REJECT;
-                }
-
-                return NodeFilter.FILTER_ACCEPT;
-            }
-        }
-    );
-
-    const textNodes = [];
-    let current;
-
-    while (current = walker.nextNode()) {
-        textNodes.push(current);
-    }
-
-    textNodes.forEach(textNode => {
-        const span = document.createElement('span');
-        span.textContent = textNode.nodeValue; // preserves spaces
-        textNode.parentNode.replaceChild(span, textNode);
-    });
-}
-
-// Parse HTML and make JSON that pdfmake understands (to pass as texts in addContent() function)
-// Each newline block needs to be parsed separately
-function spitTexts(htmlblock) {
-    let texts = '',
-        styles = [];
-
-    // Spit h2
-    if (htmlblock.tagName.includes('H2')) {
-        texts += htmlblock.textContent;
-        styles.push('h2');
-    }
-
-    // Spit span, a
-    if (htmlblock.tagName.includes('SPAN') || htmlblock.tagName.includes('A') || htmlblock.tagName.includes('P')) {
-        texts += htmlblock.textContent;
-    }
-
-    // Spit i, em
-    if (htmlblock.tagName.includes('I') || htmlblock.tagName.includes('EM')) {
-        texts += htmlblock.textContent;
-        styles.push('italic');
-    }
-
-    // Spit b, strong
-    if (htmlblock.tagName.includes('B') || htmlblock.tagName.includes('STRONG')) {
-        texts += htmlblock.textContent;
-        styles.push('bold');
-    }
-
-    // Spit u
-    if (htmlblock.tagName.includes('U')) {
-        texts += htmlblock.textContent;
-        styles.push('underlined');
-    }
-
-    return {text: texts, style: styles};
-    // console.log(JSON.stringify({text: texts}));
-}
-
-// Split up htmlblocks and send one at a time
-function multiBlock(htmlblock) {
-    let returnText = [];
-
-    // Fix naked texts after flattening html
-    if (!htmlblock.tagName.includes('SPAN') && !htmlblock.tagName.includes('A') && !htmlblock.tagName.includes('I') && !htmlblock.tagName.includes('EM') && !htmlblock.tagName.includes('B') && !htmlblock.tagName.includes('STRONG') && !htmlblock.tagName.includes('U')) {
-        wrapNakedTextInSpans(htmlblock);
-    }
-
-    // If multi child
-    if (htmlblock.children.length > 1) {
-        for (let x = 0; x < htmlblock.children.length; x++) {
-            returnText.push(spitTexts(htmlblock.children[x]));
-        }
-    } else {
-        returnText.push(spitTexts(htmlblock));
-    }
-
-    return {text: returnText};
-}
+// Prepare new content functions
 
 // PDF Filename
 function getFilename() {
@@ -631,45 +222,33 @@ if (window.location.hostname.includes('cliffsnotes.com')) {
     pl_var.linkString = '.secondary-navigation ul a';
 
     function prepareDownload() {
-        // Get content from current page
-        let content = document.querySelectorAll('.copy > *');
-        for (let x = 0; x < content.length; x++) {
-            docContent.push(multiBlock(content[x]));
-        }
-
-        pdfMake.createPdf(docDefinition()).download(getFilename());
+        
     }
 }
 
 // Listen for loading of libraries
-window.addEventListener('pl_ready_pdfmake', (e) => {
+window.addEventListener('pl_ready_paged', (e) => {
     runAll();
     console.log('PDFMake loaded at ', e.detail);
-});
-window.addEventListener('pl_ready_fonts', (e) => {
-    runAll();
-    console.log('VFS Fonts loaded at', e.detail);
 });
 
 // Run when DOM is ready
 if (document.readyState === "complete" || document.readyState === "interactive") {
     addlib();
+    addfonts();
     addstyles();
-    runAll();
 } else {
     document.addEventListener('DOMContentLoaded', () => {
         addlib();
+        addfonts();
         addstyles();
     });
 }
 
 // Main runner
 function runAll() {
-    if (pl_var.pl_running === true ||
-        !document.documentElement.classList.contains('pl-pdfmake') ||
-        !document.documentElement.classList.contains('pl-fonts')) {return;}
+    if (pl_var.pl_running === true) {return;}
 
-    sourceFonts();
     addpanel();
 
     pl_var.pl_running = true;

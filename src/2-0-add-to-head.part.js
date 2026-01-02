@@ -1,18 +1,12 @@
 // Add links to DOM head
 function addlib() {
-    let mainjs = document.createElement('script'),
-        fontsjs = document.createElement('script');
-    
-    mainjs.src = libmain;
-    mainjs.id = 'pdfmake';
-    mainjs.setAttribute('type','text/javascript');
+    let mainjs = document.createElement('script');
 
-    fontsjs.src = libfonts;
-    fontsjs.id = 'vfs_fonts';
+    mainjs.src = libpaged;
+    mainjs.id = 'pagedjs';
     mainjs.setAttribute('type','text/javascript');
 
     document.head.appendChild(mainjs);
-    document.head.appendChild(fontsjs);
 }
 
 // Add styles to DOM head
@@ -24,4 +18,22 @@ function addstyles() {
     maincss.setAttribute('type','text/css');
 
     document.head.appendChild(maincss);
+}
+
+// Add fonts to DOM head
+function addfonts() {
+    let sSans = document.createElement('link'),
+        sSerif = document.createElement('link');
+
+    sSans.href = fontsans;
+    sSerif.href = fontserif;
+    sSans.id = 'fontSourceSans';
+    sSerif.id = 'fontSourceSerif';
+    sSans.setAttribute('rel','stylesheet');
+    sSerif.setAttribute('rel','stylesheet');
+    sSans.setAttribute('type','text/css');
+    sSerif.setAttribute('type','text/css');
+
+    document.head.appendChild(sSans);
+    document.head.appendChild(sSerif);
 }

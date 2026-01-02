@@ -4,7 +4,7 @@ Download articles, summaries, analyses, and notes from various English Literatur
 
 ## Introduction
 
-Pocket Library uses PDFMake.js to dynamically convert content from supported websites into convenient PDF files, suitable for reading on digital devices and printing. Users can choose between a Serif and a Sans-serif font when downloading.
+Pocket Library uses Paged.js to dynamically convert content from supported websites into well-formatted, ready-to-print documents, also suitable for reading on digital devices. Users can download a PDF copy using the browser's built in print-to-pdf feature.
 
 ## Supported Websites
 - [CliffsNotes](https://www.cliffsnotes.com/) (in progress)
@@ -27,7 +27,7 @@ Simply disable or remove the script from the dashboard of your script manager. I
 
 ## Resources Used
 
-- [PDFMake.js](https://github.com/bpampuch/pdfmake)
+- [Paged.js](https://github.com/pagedjs/pagedjs/)
 - [Source Serif](https://fonts.google.com/specimen/Source+Serif+4)
 - [Source Sans](https://fonts.google.com/specimen/Source+Sans+3)
 

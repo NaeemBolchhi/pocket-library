@@ -9,12 +9,6 @@ if (window.location.hostname.includes('cliffsnotes.com')) {
     pl_var.linkString = '.secondary-navigation ul a';
 
     function prepareDownload() {
-        // Get content from current page
-        let content = document.querySelectorAll('.copy > *');
-        for (let x = 0; x < content.length; x++) {
-            docContent.push(multiBlock(content[x]));
-        }
-
-        pdfMake.createPdf(docDefinition()).download(getFilename());
+        
     }
 }
