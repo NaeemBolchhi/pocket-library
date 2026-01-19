@@ -1,5 +1,9 @@
 // Add links to DOM head
 function addlib() {
+    if (window.location.search !== '?pl-book') {
+        return;
+    }
+
     let mainjs = document.createElement('script');
 
     mainjs.src = libpaged;
@@ -14,7 +18,7 @@ function addstyles() {
     let maincss = document.createElement('style');
 
     maincss.textContent = mainStyles;
-    maincss.id = 'mainStyles';
+    maincss.id = 'plStyles';
     maincss.setAttribute('type','text/css');
 
     document.head.appendChild(maincss);

@@ -7,8 +7,16 @@ if (window.location.hostname.includes('cliffsnotes.com')) {
 
     // Link list
     pl_var.linkString = '.secondary-navigation ul a';
+    
+    function getPagelist() {
+        let links = document.querySelectorAll(pl_var.linkString);
 
-    function prepareDownload() {
-        
+        pl_var.linkArray = [];
+
+        for (let x = 0; x < links.length; x++) {
+            pl_var.linkArray.push(links[x].href);
+        }
+
+        return true;
     }
 }

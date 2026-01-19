@@ -1,9 +1,82 @@
+#onetrust-consent-sdk, .hide-for-small-only {
+  display: none !important;
+}
+
 #pocketlibrary {
   --_rem: 20px;
+  --_bg-main: #232323;
+  --_bg-hover: #333333;
+  --_accent-main: #e64141;
+  --_progress-bar: 0deg;
+  display: flex;
+  position: fixed;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 2147483648;
+  gap: calc(0.5 * var(--_rem));
+  font-size: calc(0.8 * var(--_rem));
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
 }
 #pocketlibrary, #pocketlibrary * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 #pocketlibrary svg {
   overflow: visible;
+}
+#pocketlibrary .pl-settings a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(2 * var(--_rem));
+  width: calc(2 * var(--_rem));
+  line-height: 1;
+  color: inherit;
+}
+#pocketlibrary .pl-prepare {
+  background-image: conic-gradient(var(--_accent-main) var(--_progress-bar), var(--_bg-main) var(--_progress-bar)) !important;
+}
+#pocketlibrary .pl-prepare button {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(2 * var(--_rem));
+  min-width: calc(2 * var(--_rem));
+  width: -moz-fit-content;
+  width: fit-content;
+  gap: calc(0.5 * var(--_rem));
+  line-height: 1;
+  padding: 0 calc(0.6 * var(--_rem));
+  cursor: pointer;
+  color: inherit;
+}
+#pocketlibrary .pl-settings, #pocketlibrary .pl-prepare {
+  padding: calc(0.15 * var(--_rem));
+  background: var(--_bg-main);
+  border-radius: calc(2.3 * var(--_rem));
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+#pocketlibrary .pl-settings svg, #pocketlibrary .pl-prepare svg {
+  height: calc(1 * var(--_rem));
+  width: calc(1 * var(--_rem));
+}
+#pocketlibrary .pl-settings cloak, #pocketlibrary .pl-prepare cloak {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(0.5 * var(--_rem));
+  color: #ffffff;
+  background: var(--_bg-main);
+  border-radius: calc(2 * var(--_rem));
+}
+#pocketlibrary .pl-settings:hover cloak, #pocketlibrary .pl-settings:focus cloak, #pocketlibrary .pl-prepare:hover cloak, #pocketlibrary .pl-prepare:focus cloak {
+  color: var(--_accent-main);
+  background: var(--_bg-hover);
+}
+#pocketlibrary .pl-settings:active a, #pocketlibrary .pl-settings:active button, #pocketlibrary .pl-prepare:active a, #pocketlibrary .pl-prepare:active button {
+  transform: translateY(3px);
 }/*# sourceMappingURL=1-1-styles-main.part.css.map */

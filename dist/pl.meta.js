@@ -7,7 +7,7 @@
 // @license      GPL-3.0-or-later
 // @icon         https://naeembolchhi.github.io/pocket-library/icon.svg
 // @match        http*://www.cliffsnotes.com/*
-// @run-at       document-idle
+// @run-at       document-body
 // @grant        none
 // @downloadURL  https://naeembolchhi.github.io/pocket-library/dist/pl.user.js
 // @updateURL    https://naeembolchhi.github.io/pocket-library/dist/pl.meta.js

@@ -5,9 +5,19 @@ function addpanel() {
     maindiv.id = 'pocketlibrary';
     maindiv.innerHTML = `
         <div class="pl-settings">
-            <a title="Pocket Library" href="https://naeembolchhi.github.io/pocket-library/" target="_blank">
-                ${getIcon.logo}
-            </a>
+            <cloak>
+                <a title="Pocket Library" href="https://naeembolchhi.github.io/pocket-library/" target="_blank">
+                    ${getIcon.logo}
+                </a>
+            </cloak>
+        </div>
+        <div class="pl-prepare">
+            <cloak>
+                <button>
+                    ${getIcon.preview}
+                    <span>Preview PDF</span>
+                </button>
+            </cloak>
         </div>
     `.replace(/\n/g,'').replace(/>\s+</g,'><').replace(/^\s+/g,'').replace(/\s+$/g,'');
 

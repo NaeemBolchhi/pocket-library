@@ -1,10 +1,10 @@
 @echo off
 setlocal enabledelayedexpansion
 
-set "OUTPUT=%~dp0\dist\pl.user.js"
-set "OUTPUT_META=%~dp0\dist\pl.meta.js"
+set "OUTPUT=%~dp0dist\pl.user.js"
+set "OUTPUT_META=%~dp0dist\pl.meta.js"
 
-set "SOURCE=%~dp0\src"
+set "SOURCE=%~dp0src"
 
 :: Remove old output file if it exists
 if exist "%OUTPUT%" del "%OUTPUT%"
@@ -12,6 +12,7 @@ if exist "%OUTPUT_META%" del "%OUTPUT_META%"
 
 echo Setting update meta ...
 type "%SOURCE%\0-0-us-info.part.js" >> "%OUTPUT_META%"
+echo.
 
 :: Loop through all '0' files
 for %%f in ("%SOURCE%\0-*.part.js") do (
@@ -25,17 +26,17 @@ for %%f in ("%SOURCE%\0-*.part.js") do (
 )
 
 :: Add all '1' files
-echo Adding 1-0-styles-start.part.js ...
+echo Adding %SOURCE%\1-0-styles-start.part.js ...
 type "%SOURCE%\1-0-styles-start.part.js" >> "%OUTPUT%"
 (
 	echo(
 ) >> "%OUTPUT%"
-echo Adding 1-1-styles-main.part.css ...
+echo Adding %SOURCE%\1-1-styles-main.part.css ...
 type "%SOURCE%\1-1-styles-main.part.css" >> "%OUTPUT%"
 (
 	echo(
 ) >> "%OUTPUT%"
-echo Adding 1-2-styles-end.part.js ...
+echo Adding %SOURCE%\1-2-styles-end.part.js ...
 type "%SOURCE%\1-2-styles-end.part.js" >> "%OUTPUT%"
 (
 	echo(
