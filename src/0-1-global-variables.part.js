@@ -1,5 +1,6 @@
 // Globally available constants
 const libpaged = 'https://naeembolchhi.github.io/pocket-library/lib/paged.polyfill.min.js',
+      normalcss = 'https://naeembolchhi.github.io/pocket-library/lib/modern-normalize.min.css',
       fontsans = 'https://naeembolchhi.github.io/pocket-library/fonts/sourcesans.min.css',
       fontserif = 'https://naeembolchhi.github.io/pocket-library/fonts/sourceserif.min.css';
 

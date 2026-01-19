@@ -15,6 +15,7 @@
 
 // Globally available constants
 const libpaged = 'https://naeembolchhi.github.io/pocket-library/lib/paged.polyfill.min.js',
+      normalcss = 'https://naeembolchhi.github.io/pocket-library/lib/modern-normalize.min.css',
       fontsans = 'https://naeembolchhi.github.io/pocket-library/fonts/sourcesans.min.css',
       fontserif = 'https://naeembolchhi.github.io/pocket-library/fonts/sourceserif.min.css';
 
@@ -136,6 +137,40 @@ const mainStyles = `
 }/*# sourceMappingURL=1-1-styles-main.part.css.map */
 `;
 
+// Define styles
+const bookStyles = `
+.back-to-literature-note, #abstractAd, .continuedOnNextPage {
+  display: none !important;
+}
+
+p {
+  text-align: justify;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h2 {
+  -moz-column-break-before: page;
+       break-before: page;
+  margin-top: 0;
+}
+
+.litNoteTextHeading {
+  font-weight: 700;
+}
+
+@page {
+  size: A4;
+  margin: 25.4mm;
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+  }
+}/*# sourceMappingURL=1-4-styles-book.part.css.map */
+`;
+
 // Add links to DOM head
 function addlib() {
     if (window.location.search !== '?pl-book') {
@@ -255,12 +290,13 @@ function looper() {
 
     if (!pl_var.loop) {
         pl_var.loop = 1;
+        sessionStorage.pl_content = '';
     } else {
         pl_var.loop++;
     }
 
     if (pl_var.loop !== pl_var.linkArray.length) {
-        createFrame(pl_var.linkArray[pl_var.loop] + '?pl_looping');
+        createFrame(pl_var.linkArray[pl_var.loop - 1] + '?pl_looping');
     } else {
         pocketPDF();
 
@@ -274,7 +310,28 @@ function looper() {
 
 // Put content together in a new tab
 function pocketPDF() {
-    const myHTML = "<html><body><h1>Virtual File</h1></body></html>";
+    const myHTML = `
+        <!DOCTYPE html>
+        <html>
+            <head>
+                <title>${getFilename()}</title>
+
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="HandheldFriendly" content="true">
+                <meta name="description" content="A free and easy way to learn touch typing on Colemak and other keyboard layouts.">
+                <meta name="author" content="Colemak Camp">
+
+                <link rel="shortcut icon" href="data:image/svg+xml;base64,${btoa(getIcon.logo.replace('currentColor','#e64141'))}" type="image/x-icon">
+                <link href="${normalcss}" id="modernNormalize" rel="stylesheet" type="text/css">
+                <link href="${fontsans}" id="fontSans" rel="stylesheet" type="text/css">
+                <link href="${fontserif}" id="fontSerif" rel="stylesheet" type="text/css">
+                <script src="${libpaged}" type="text/javascript"></script>
+                <style type="text/css">${bookStyles}</style>
+            </head>
+            <body>CONTENT_HERE</body>
+        </html>
+    `.replace(/\n/g,'').replace(/>\s+</g,'><').replace(/^\s+/g,'').replace(/\s+$/g,'').replace('CONTENT_HERE', sessionStorage.pl_content);
 
     const blob = new Blob([myHTML], { type: 'text/html' });
 
@@ -293,6 +350,12 @@ window.addEventListener('message', (e) => {
 
 document.addEventListener("DOMContentLoaded", (e) => {
     if (!window.location.href.match(/\?pl_looping/)) {return;}
+
+    let content = document.querySelector('article.copy');
+
+    if (content) {
+        sessionStorage.pl_content += content.innerHTML;
+    }
 
     window.parent.postMessage('pl-iframe-done-' + window.location.href);
 });

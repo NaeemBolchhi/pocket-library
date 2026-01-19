@@ -42,6 +42,22 @@ type "%SOURCE%\1-2-styles-end.part.js" >> "%OUTPUT%"
 	echo(
 ) >> "%OUTPUT%"
 
+echo Adding %SOURCE%\1-3-styles-start.part.js ...
+type "%SOURCE%\1-3-styles-start.part.js" >> "%OUTPUT%"
+(
+	echo(
+) >> "%OUTPUT%"
+echo Adding %SOURCE%\1-4-styles-book.part.css ...
+type "%SOURCE%\1-4-styles-book.part.css" >> "%OUTPUT%"
+(
+	echo(
+) >> "%OUTPUT%"
+echo Adding %SOURCE%\1-5-styles-end.part.js ...
+type "%SOURCE%\1-5-styles-end.part.js" >> "%OUTPUT%"
+(
+	echo(
+) >> "%OUTPUT%"
+
 :: Loop through all '2' files
 for %%f in ("%SOURCE%\2-*.part.js") do (
     if /i not "%%f"=="%OUTPUT%" (
