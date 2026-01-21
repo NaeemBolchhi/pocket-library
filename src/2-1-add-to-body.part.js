@@ -14,9 +14,17 @@ function addpanel() {
         <div class="pl-prepare">
             <cloak>
                 <button>
-                    ${getIcon.preview}
-                    <span>Preview PDF</span>
+                    ${getIcon.cache}
+                    <span>Prepare</span>
                 </button>
+            </cloak>
+        </div>
+        <div class="pl-preview">
+            <cloak>
+                <a target="_blank">
+                    ${getIcon.preview}
+                    <span>Preview</span>
+                </a>
             </cloak>
         </div>
     `.replace(/\n/g,'').replace(/>\s+</g,'><').replace(/^\s+/g,'').replace(/\s+$/g,'');

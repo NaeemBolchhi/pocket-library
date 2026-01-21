@@ -1,9 +1,6 @@
 // PDF Filename
 function getFilename() {
-    let pl_title = document.querySelector(pl_var.titleString).textContent,
-        pl_author = document.querySelector(pl_var.authorString).textContent;
-
-    return `${pl_var.hostString} - ${pl_title} (${pl_author})`;
+    return `${pl_var.hostString} - ${pl_var.title} (${pl_var.author})`;
 }
 
 // Create an iframe for any url
@@ -23,8 +20,6 @@ function deleteFrame(src) {
 
 // Loop through link list
 function looper() {
-    let pl = document.querySelector('pocketlibrary');
-
     if (!pl_var.loop) {
         pl_var.loop = 1;
         sessionStorage.pl_content = '';
@@ -45,8 +40,21 @@ function looper() {
     updateProgress(pl_var.loop / pl_var.linkArray.length * 360);
 }
 
+// Arrange heading of the document
+function setHeading() {
+    pl_var.textHeading = `
+        <heading>
+            <htitle>${pl_var.title}</htitle>
+            <hauthor>${pl_var.author}</hauthor>
+            <p>${getIcon.logo.replace(' fill="currentColor">','>')} From ${pl_var.hostString} via <a href="https://naeembolchhi.github.io/pocket-library/" target="_blank">Pocket Library</a></p>
+        </heading>
+    `;
+}
+
 // Put content together in a new tab
 function pocketPDF() {
+    setHeading();
+
     const myHTML = `
         <!DOCTYPE html>
         <html>
@@ -64,15 +72,17 @@ function pocketPDF() {
                 <link href="${fontsans}" id="fontSans" rel="stylesheet" type="text/css">
                 <link href="${fontserif}" id="fontSerif" rel="stylesheet" type="text/css">
                 <script src="${libpaged}" type="text/javascript"></script>
-                <style type="text/css">${bookStyles}</style>
+                <style type="text/css">${bookStyles + pl_var.specialStyles}</style>
             </head>
-            <body>CONTENT_HERE</body>
+            <body>${pl_var.textHeading}CONTENT_HERE</body>
         </html>
     `.replace(/\n/g,'').replace(/>\s+</g,'><').replace(/^\s+/g,'').replace(/\s+$/g,'').replace('CONTENT_HERE', sessionStorage.pl_content);
 
     const blob = new Blob([myHTML], { type: 'text/html' });
 
     const blobURL = URL.createObjectURL(blob);
+
+    document.querySelector('#pocketlibrary .pl-preview a').href = blobURL;
 
     window.open(blobURL, '_blank');
 }

@@ -63,7 +63,21 @@
             color: inherit;
         }
     }
-    .pl-settings, .pl-prepare {
+    .pl-preview {
+        a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: calc(2 * var(--_rem));
+            min-width: calc(2 * var(--_rem));
+            width: fit-content;
+            gap: calc(.5 * var(--_rem));
+            line-height: 1;
+            padding: 0 calc(.6 * var(--_rem));
+            color: inherit;
+        }
+    }
+    .pl-settings, .pl-prepare, .pl-preview {
         padding: calc(.15 * var(--_rem));
         background: var(--_bg-main);
         border-radius: calc(2.3 * var(--_rem));
@@ -94,9 +108,11 @@
         }
     }
 
-    // Not in book view
-    &:not(.pl-book) {}
+    &:has(.pl-preview a[href]) .pl-prepare {
+        display: none;
+    }
 
-    // In book view
-    &.pl-book {}
+    &:has(.pl-preview a:not([href])) .pl-preview {
+        display: none;
+    }
 }

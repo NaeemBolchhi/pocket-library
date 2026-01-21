@@ -7,12 +7,23 @@
     user-select: none;
 }
 
-.back-to-literature-note, #abstractAd, .continuedOnNextPage {
-    display: none !important;
+html {
+    --source-sans: 'Source Sans', sans-serif;
+    --source-serif: 'Source Serif', serif;
+    --font-size: 12px;
+    --line-height: 1.5;
+    &.font-sans {
+        font-family: var(--source-sans);
+    }
+    &.font-serif {
+        font-family: var(--source-serif);
+    }
+    font-size: var(--font-size);
 }
 
 p {
     text-align: justify;
+    line-height: var(--line-height);
 }
 
 a {
@@ -20,20 +31,49 @@ a {
     text-decoration: none;
 }
 
-h2 {
-    break-before: page;
-    margin-top: 0;
-}
-
-.litNoteTextHeading {
-    font-weight: 700;
+heading {
+    display: flex;
+    flex-direction: column;
+    gap: calc(6 / 12 * var(--font-size));
+    margin-bottom: calc(36 / 12 * var(--font-size));
+    htitle {
+        font-size: calc(36 / 12 * var(--font-size));
+        string-set: htitle content();
+    }
+    hauthor {
+        font-size: calc(24 / 12 * var(--font-size));
+        // string-set: hauthor content();
+    }
+    htitle, hauthor {
+        display: block;
+        font-weight: 700;
+    }
+    p {
+        display: block;
+        margin-top: calc(6 / 12 * var(--font-size));
+        font-size: calc(12 / 12 * var(--font-size));
+    }
+    svg {
+        height: calc(12 / 12 * var(--font-size));
+        margin-bottom: calc(-1 / 12 * var(--font-size));
+    }
 }
 
 @page {
     size: A4;
     margin: 25.4mm;
 
-    @bottom-right {
+    @top-center {
+        content: string(htitle);
+    }
+
+    @bottom-center {
         content: "Page " counter(page) " of " counter(pages);
+    }
+}
+
+@page :first {
+    @top-center {
+        content: none;
     }
 }

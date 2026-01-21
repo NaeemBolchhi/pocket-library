@@ -17,3 +17,7 @@ document.addEventListener('click', (e) => {
         preparePDF();
     }
 });
+
+// window.PagedPolyfill.preview();
+// make another js for gui functions in book preview
+// run this command every time any style is changed

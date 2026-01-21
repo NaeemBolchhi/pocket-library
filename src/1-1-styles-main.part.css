@@ -54,17 +54,30 @@
   cursor: pointer;
   color: inherit;
 }
-#pocketlibrary .pl-settings, #pocketlibrary .pl-prepare {
+#pocketlibrary .pl-preview a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(2 * var(--_rem));
+  min-width: calc(2 * var(--_rem));
+  width: -moz-fit-content;
+  width: fit-content;
+  gap: calc(0.5 * var(--_rem));
+  line-height: 1;
+  padding: 0 calc(0.6 * var(--_rem));
+  color: inherit;
+}
+#pocketlibrary .pl-settings, #pocketlibrary .pl-prepare, #pocketlibrary .pl-preview {
   padding: calc(0.15 * var(--_rem));
   background: var(--_bg-main);
   border-radius: calc(2.3 * var(--_rem));
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
-#pocketlibrary .pl-settings svg, #pocketlibrary .pl-prepare svg {
+#pocketlibrary .pl-settings svg, #pocketlibrary .pl-prepare svg, #pocketlibrary .pl-preview svg {
   height: calc(1 * var(--_rem));
   width: calc(1 * var(--_rem));
 }
-#pocketlibrary .pl-settings cloak, #pocketlibrary .pl-prepare cloak {
+#pocketlibrary .pl-settings cloak, #pocketlibrary .pl-prepare cloak, #pocketlibrary .pl-preview cloak {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,10 +86,16 @@
   background: var(--_bg-main);
   border-radius: calc(2 * var(--_rem));
 }
-#pocketlibrary .pl-settings:hover cloak, #pocketlibrary .pl-settings:focus cloak, #pocketlibrary .pl-prepare:hover cloak, #pocketlibrary .pl-prepare:focus cloak {
+#pocketlibrary .pl-settings:hover cloak, #pocketlibrary .pl-settings:focus cloak, #pocketlibrary .pl-prepare:hover cloak, #pocketlibrary .pl-prepare:focus cloak, #pocketlibrary .pl-preview:hover cloak, #pocketlibrary .pl-preview:focus cloak {
   color: var(--_accent-main);
   background: var(--_bg-hover);
 }
-#pocketlibrary .pl-settings:active a, #pocketlibrary .pl-settings:active button, #pocketlibrary .pl-prepare:active a, #pocketlibrary .pl-prepare:active button {
+#pocketlibrary .pl-settings:active a, #pocketlibrary .pl-settings:active button, #pocketlibrary .pl-prepare:active a, #pocketlibrary .pl-prepare:active button, #pocketlibrary .pl-preview:active a, #pocketlibrary .pl-preview:active button {
   transform: translateY(3px);
+}
+#pocketlibrary:has(.pl-preview a[href]) .pl-prepare {
+  display: none;
+}
+#pocketlibrary:has(.pl-preview a:not([href])) .pl-preview {
+  display: none;
 }/*# sourceMappingURL=1-1-styles-main.part.css.map */

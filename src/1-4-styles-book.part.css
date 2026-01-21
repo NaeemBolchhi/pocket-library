@@ -1,9 +1,20 @@
-.back-to-literature-note, #abstractAd, .continuedOnNextPage {
-  display: none !important;
+html {
+  --source-sans: "Source Sans", sans-serif;
+  --source-serif: "Source Serif", serif;
+  --font-size: 12px;
+  --line-height: 1.5;
+  font-size: var(--font-size);
+}
+html.font-sans {
+  font-family: var(--source-sans);
+}
+html.font-serif {
+  font-family: var(--source-serif);
 }
 
 p {
   text-align: justify;
+  line-height: var(--line-height);
 }
 
 a {
@@ -11,20 +22,45 @@ a {
   text-decoration: none;
 }
 
-h2 {
-  -moz-column-break-before: page;
-       break-before: page;
-  margin-top: 0;
+heading {
+  display: flex;
+  flex-direction: column;
+  gap: calc(0.5 * var(--font-size));
+  margin-bottom: calc(3 * var(--font-size));
 }
-
-.litNoteTextHeading {
+heading htitle {
+  font-size: calc(3 * var(--font-size));
+  string-set: htitle content();
+}
+heading hauthor {
+  font-size: calc(2 * var(--font-size));
+}
+heading htitle, heading hauthor {
+  display: block;
   font-weight: 700;
+}
+heading p {
+  display: block;
+  margin-top: calc(0.5 * var(--font-size));
+  font-size: calc(1 * var(--font-size));
+}
+heading svg {
+  height: calc(1 * var(--font-size));
+  margin-bottom: calc(-0.0833333333 * var(--font-size));
 }
 
 @page {
   size: A4;
   margin: 25.4mm;
-  @bottom-right {
+  @top-center {
+    content: string(htitle);
+  }
+  @bottom-center {
     content: "Page " counter(page) " of " counter(pages);
+  }
+}
+@page :first {
+  @top-center {
+    content: none;
   }
 }/*# sourceMappingURL=1-4-styles-book.part.css.map */
