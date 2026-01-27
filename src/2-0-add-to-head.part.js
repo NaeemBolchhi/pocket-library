@@ -1,5 +1,5 @@
 // Add links to DOM head
-function addlib() {
+/*function addlib() {
     if (window.location.search !== '?pl-book') {
         return;
     }
@@ -11,7 +11,7 @@ function addlib() {
     mainjs.setAttribute('type','text/javascript');
 
     document.head.appendChild(mainjs);
-}
+}*/
 
 // Add styles to DOM head
 function addstyles() {
@@ -25,7 +25,7 @@ function addstyles() {
 }
 
 // Add fonts to DOM head
-function addfonts() {
+/*function addfonts() {
     let sSans = document.createElement('link'),
         sSerif = document.createElement('link');
 
@@ -40,4 +40,4 @@ function addfonts() {
 
     document.head.appendChild(sSans);
     document.head.appendChild(sSerif);
-}
+}*/

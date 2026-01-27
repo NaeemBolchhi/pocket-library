@@ -228,11 +228,16 @@ heading svg {
   @top-center {
     content: none;
   }
+}
+@media print {
+  #pocketlibrary {
+    display: none;
+  }
 }/*# sourceMappingURL=1-4-styles-book.part.css.map */
 `;
 
 // Add links to DOM head
-function addlib() {
+/*function addlib() {
     if (window.location.search !== '?pl-book') {
         return;
     }
@@ -244,7 +249,7 @@ function addlib() {
     mainjs.setAttribute('type','text/javascript');
 
     document.head.appendChild(mainjs);
-}
+}*/
 
 // Add styles to DOM head
 function addstyles() {
@@ -258,7 +263,7 @@ function addstyles() {
 }
 
 // Add fonts to DOM head
-function addfonts() {
+/*function addfonts() {
     let sSans = document.createElement('link'),
         sSerif = document.createElement('link');
 
@@ -273,7 +278,7 @@ function addfonts() {
 
     document.head.appendChild(sSans);
     document.head.appendChild(sSerif);
-}
+}*/
 
 // Add panel to DOM
 function addpanel() {
@@ -314,6 +319,42 @@ function addpanel() {
     `.replace(/\n/g,'').replace(/>\s+</g,'><').replace(/^\s+/g,'').replace(/\s+$/g,'');
 
     document.body.appendChild(maindiv);
+}
+
+// Define panel for preview page
+function getbookpanel() {
+    return `
+        <div class="pl-settings">
+            <cloak>
+                <a title="Pocket Library" href="https://naeembolchhi.github.io/pocket-library/" target="_blank">
+                    ${getIcon.logo}
+                </a>
+            </cloak>
+        </div>
+        <div class="pl-prepare">
+            <cloak>
+                <button>
+                    ${getIcon.cache}
+                    <span>Prepare</span>
+                </button>
+            </cloak>
+        </div>
+        <div class="pl-preview">
+            <cloak>
+                <a target="_blank">
+                    ${getIcon.preview}
+                    <span>Preview</span>
+                </a>
+            </cloak>
+        </div>
+        <div class="pl-refresh">
+            <cloak>
+                <button>
+                    ${getIcon.refresh}
+                </button>
+            </cloak>
+        </div>
+    `.replace(/\n/g,'').replace(/>\s+</g,'><').replace(/^\s+/g,'').replace(/\s+$/g,'');
 }
 
 // Prepare PDF
@@ -414,10 +455,12 @@ function pocketPDF() {
                 <link href="${normalcss}" id="modernNormalize" rel="stylesheet" type="text/css">
                 <link href="${fontsans}" id="fontSans" rel="stylesheet" type="text/css">
                 <link href="${fontserif}" id="fontSerif" rel="stylesheet" type="text/css">
-                <script src="${libpaged}" type="text/javascript"></script>
                 <style type="text/css">${bookStyles + pl_var.specialStyles}</style>
+                <script src="${libpaged}" type="text/javascript"></script>
             </head>
-            <body>${pl_var.textHeading}CONTENT_HERE</body>
+            <body>
+                ${pl_var.textHeading}CONTENT_HERE<div id="pocketlibrary">${getbookpanel()}</div>
+            </body>
         </html>
     `.replace(/\n/g,'').replace(/>\s+</g,'><').replace(/^\s+/g,'').replace(/\s+$/g,'').replace('CONTENT_HERE', sessionStorage.pl_content);
 
@@ -491,12 +534,6 @@ if (window.location.hostname.includes('cliffsnotes.com')) {
         }
     `;
 }
-
-// Listen for loading of libraries
-window.addEventListener('pl_ready_paged', (e) => {
-    document.documentElement.classList.add('pl-book');
-    console.log('PDFMake loaded at ', e.detail);
-});
 
 // Run when DOM is ready
 if (document.readyState === "complete" || document.readyState === "interactive") {

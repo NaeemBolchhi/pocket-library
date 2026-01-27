@@ -71,10 +71,12 @@ function pocketPDF() {
                 <link href="${normalcss}" id="modernNormalize" rel="stylesheet" type="text/css">
                 <link href="${fontsans}" id="fontSans" rel="stylesheet" type="text/css">
                 <link href="${fontserif}" id="fontSerif" rel="stylesheet" type="text/css">
-                <script src="${libpaged}" type="text/javascript"></script>
                 <style type="text/css">${bookStyles + pl_var.specialStyles}</style>
+                <script src="${libpaged}" type="text/javascript"></script>
             </head>
-            <body>${pl_var.textHeading}CONTENT_HERE</body>
+            <body>
+                ${pl_var.textHeading}CONTENT_HERE<div id="pocketlibrary">${getbookpanel()}</div>
+            </body>
         </html>
     `.replace(/\n/g,'').replace(/>\s+</g,'><').replace(/^\s+/g,'').replace(/\s+$/g,'').replace('CONTENT_HERE', sessionStorage.pl_content);
 
