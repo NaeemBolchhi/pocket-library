@@ -66,6 +66,7 @@ function pocketPDF() {
                 <link href="${normalcss}" id="modernNormalize" rel="stylesheet" type="text/css">
                 <link href="${fontsans}" id="fontSans" rel="stylesheet" type="text/css">
                 <link href="${fontserif}" id="fontSerif" rel="stylesheet" type="text/css">
+                <link href="${fontlato}" id="fontSerif" rel="stylesheet" type="text/css">
                 <style type="text/css" data-pagedjs-ignore>${mainStyles}</style>
                 <style type="text/css">${bookStyles + pl_var.specialStyles}</style>
                 <script src="${libpaged}" type="text/javascript"></script>

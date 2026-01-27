@@ -136,6 +136,9 @@ const mainStyles = `
   height: calc(1 * var(--_rem));
   width: calc(1 * var(--_rem));
 }
+#pocketlibrary .pl-settings span, #pocketlibrary .pl-prepare span, #pocketlibrary .pl-preview span, #pocketlibrary .pl-refresh span, #pocketlibrary .pl-print span {
+  padding-bottom: calc(0.2 * var(--_rem));
+}
 #pocketlibrary .pl-settings cloak, #pocketlibrary .pl-prepare cloak, #pocketlibrary .pl-preview cloak, #pocketlibrary .pl-refresh cloak, #pocketlibrary .pl-print cloak {
   display: flex;
   align-items: center;
@@ -440,6 +443,7 @@ function pocketPDF() {
                 <link href="${normalcss}" id="modernNormalize" rel="stylesheet" type="text/css">
                 <link href="${fontsans}" id="fontSans" rel="stylesheet" type="text/css">
                 <link href="${fontserif}" id="fontSerif" rel="stylesheet" type="text/css">
+                <link href="${fontlato}" id="fontSerif" rel="stylesheet" type="text/css">
                 <style type="text/css" data-pagedjs-ignore>${mainStyles}</style>
                 <style type="text/css">${bookStyles + pl_var.specialStyles}</style>
                 <script src="${libpaged}" type="text/javascript"></script>

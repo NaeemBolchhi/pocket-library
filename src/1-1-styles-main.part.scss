@@ -87,6 +87,9 @@
             height: calc(1 * var(--_rem));
             width: calc(1 * var(--_rem));
         }
+        span {
+            padding-bottom: calc(4 / 20 * var(--_rem));
+        }
         cloak {
             display: flex;
             align-items: center;
