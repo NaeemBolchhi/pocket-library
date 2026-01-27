@@ -14,6 +14,7 @@
 #pocketlibrary {
     &, & * {
         box-sizing: border-box;
+        font-family: 'Lato', sans-serif;
         -webkit-tap-highlight-color: transparent;
     }
     svg {
@@ -27,8 +28,8 @@
 
     display: flex;
     position: fixed;
-    left: 1rem;
-    bottom: 1rem;
+    left: calc(1 * var(--_rem));
+    bottom: calc(1 * var(--_rem));
     z-index: 2147483648;
     gap: calc(.5 * var(--_rem));
     font-size: calc(.8 * var(--_rem));
@@ -36,23 +37,18 @@
     @include noselect();
 
     .pl-settings, .pl-refresh {
-        button {
-            all: unset;
-            cursor: pointer;
-        }
-        a, button {
+        a {
             display: flex;
             align-items: center;
             justify-content: center;
             height: calc(2 * var(--_rem));
             width: calc(2 * var(--_rem));
             line-height: 1;
-            color: inherit;
         }
     }
     .pl-prepare {
         background-image: conic-gradient(var(--_accent-main) var(--_progress-bar), var(--_bg-main) var(--_progress-bar)) !important;
-        button {
+        a {
             all: unset;
             display: flex;
             align-items: center;
@@ -63,11 +59,9 @@
             gap: calc(.5 * var(--_rem));
             line-height: 1;
             padding: 0 calc(.6 * var(--_rem));
-            cursor: pointer;
-            color: inherit;
         }
     }
-    .pl-preview {
+    .pl-preview, .pl-print {
         a {
             display: flex;
             align-items: center;
@@ -78,10 +72,13 @@
             gap: calc(.5 * var(--_rem));
             line-height: 1;
             padding: 0 calc(.6 * var(--_rem));
-            color: inherit;
         }
     }
-    .pl-settings, .pl-prepare, .pl-preview, .pl-refresh {
+    .pl-settings, .pl-prepare, .pl-preview, .pl-refresh, .pl-print {
+        &, a {
+            cursor: pointer;
+            color: inherit;
+        }
         padding: calc(.15 * var(--_rem));
         background: var(--_bg-main);
         border-radius: calc(2.3 * var(--_rem));
@@ -106,7 +103,7 @@
             }
         }
         &:active {
-            a, button {
+            a {
                 transform: translateY(3px);
             }
         }
@@ -122,5 +119,11 @@
         .pl-preview, .pl-refresh {
             display: none;
         }
+    }
+}
+
+@media print {
+    #pocketlibrary {
+        display: none !important;
     }
 }

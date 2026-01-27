@@ -25,19 +25,13 @@ function addstyles() {
 }
 
 // Add fonts to DOM head
-/*function addfonts() {
-    let sSans = document.createElement('link'),
-        sSerif = document.createElement('link');
+function addfont() {
+    let lato = document.createElement('link');
 
-    sSans.href = fontsans;
-    sSerif.href = fontserif;
-    sSans.id = 'fontSourceSans';
-    sSerif.id = 'fontSourceSerif';
-    sSans.setAttribute('rel','stylesheet');
-    sSerif.setAttribute('rel','stylesheet');
-    sSans.setAttribute('type','text/css');
-    sSerif.setAttribute('type','text/css');
-
-    document.head.appendChild(sSans);
-    document.head.appendChild(sSerif);
-}*/
+    lato.href = fontlato;
+    lato.id = 'fontLato';
+    lato.setAttribute('rel','stylesheet');
+    lato.setAttribute('type','text/css');
+    
+    document.head.appendChild(lato);
+}

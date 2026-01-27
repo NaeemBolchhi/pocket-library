@@ -1,8 +1,3 @@
-// PDF Filename
-function getFilename() {
-    return `${pl_var.hostString} - ${pl_var.title} (${pl_var.author})`;
-}
-
 // Create an iframe for any url
 function createFrame(link) {
     let iframe = document.createElement('iframe');
@@ -59,23 +54,37 @@ function pocketPDF() {
         <!DOCTYPE html>
         <html>
             <head>
-                <title>${getFilename()}</title>
+                <title>${pl_var.hostString} - ${pl_var.title} (${pl_var.author})</title>
 
                 <meta http-equiv="content-type" content="text/html; charset=utf-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
                 <meta name="HandheldFriendly" content="true">
-                <meta name="description" content="A free and easy way to learn touch typing on Colemak and other keyboard layouts.">
-                <meta name="author" content="Colemak Camp">
+                <meta name="description" content="${pl_var.title} by ${pl_var.author}.">
+                <meta name="author" content="${pl_var.author}">
 
                 <link rel="shortcut icon" href="data:image/svg+xml;base64,${btoa(getIcon.logo.replace('currentColor','#e64141'))}" type="image/x-icon">
                 <link href="${normalcss}" id="modernNormalize" rel="stylesheet" type="text/css">
                 <link href="${fontsans}" id="fontSans" rel="stylesheet" type="text/css">
                 <link href="${fontserif}" id="fontSerif" rel="stylesheet" type="text/css">
+                <style type="text/css" data-pagedjs-ignore>${mainStyles}</style>
                 <style type="text/css">${bookStyles + pl_var.specialStyles}</style>
                 <script src="${libpaged}" type="text/javascript"></script>
             </head>
-            <body>
-                ${pl_var.textHeading}CONTENT_HERE<div id="pocketlibrary">${getbookpanel()}</div>
+            <body style="opacity: 0">
+                <div id="pl-content" style="display:none">${pl_var.textHeading}CONTENT_HERE</div>
+                <div id="pl-container"></div>
+                <div id="pocketlibrary">${getbookpanel()}</div>
+
+                <script type="text/javascript">
+                    const contentSource = document.getElementById("pl-content");
+                    const contentPreview = document.getElementById("pl-container");
+                    const paged = new Paged.Previewer();
+
+                    paged.preview(contentSource.innerHTML, null, contentPreview).then((flow) => {
+                        document.body.removeAttribute('style');
+                    });
+                </script>
+                <script type="text/javascript">${bookGUI}</script>
             </body>
         </html>
     `.replace(/\n/g,'').replace(/>\s+</g,'><').replace(/^\s+/g,'').replace(/\s+$/g,'').replace('CONTENT_HERE', sessionStorage.pl_content);

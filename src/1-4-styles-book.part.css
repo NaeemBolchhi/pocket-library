@@ -63,9 +63,4 @@ heading svg {
   @top-center {
     content: none;
   }
-}
-@media print {
-  #pocketlibrary {
-    display: none;
-  }
 }/*# sourceMappingURL=1-4-styles-book.part.css.map */

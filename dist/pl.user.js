@@ -14,10 +14,11 @@
 // ==/UserScript==
 
 // Globally available constants
-const libpaged = 'https://naeembolchhi.github.io/pocket-library/lib/paged.polyfill.min.js',
+const libpaged = 'https://naeembolchhi.github.io/pocket-library/lib/paged.js',
       normalcss = 'https://naeembolchhi.github.io/pocket-library/lib/modern-normalize.min.css',
       fontsans = 'https://naeembolchhi.github.io/pocket-library/fonts/sourcesans.min.css',
-      fontserif = 'https://naeembolchhi.github.io/pocket-library/fonts/sourceserif.min.css';
+      fontserif = 'https://naeembolchhi.github.io/pocket-library/fonts/sourceserif.min.css',
+      fontlato = 'https://naeembolchhi.github.io/pocket-library/fonts/lato.min.css';
 
       getIcon = {
             "logo": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 300 300" fill="currentColor"><path d="m284.11 232.24.02-.01-.1-.05.08.06zm-143.84 43.47-84.84-63.48-39.57 20L149.99 300l133.96-67.68-143.68 43.39z"/><path d="m284.14 232.29-.07-.08.05.09.02-.01zm-150.05-8.33-58.01-88.67-44.03 5.25L134.92 250.1l149.02-17.78-149.85-8.36z"/><path d="M146.01 173.14 121.83 70.01 78.64 59.89l59.19 138.14 146.31 34.3-138.13-59.19z"/><path d="m275.77 82.28 8.37 150.05-125.76-82.28L150.01 0l125.76 82.28z"/></svg>`,
@@ -34,7 +35,8 @@ const libpaged = 'https://naeembolchhi.github.io/pocket-library/lib/paged.polyfi
             // "finalize": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 96 96" fill="currentColor"><path d="M0 0h96v96H0z" fill="none"/><path d="m72.63 26.14-5.82-5.82L40.63 46.5l5.82 5.82 26.18-26.18Zm17.51-5.83L46.45 64 29.19 46.78l-5.82 5.82 23.08 23.08L96 26.13l-5.86-5.82ZM0 52.6l23.08 23.08 5.82-5.82L5.86 46.78 0 52.6Z"/></svg>`,
             // "clear": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 96 96" fill="currentColor"><path d="M0 0h96v96H0z" fill="none"/><path d="M96 9.67 86.33 0 48 38.33 9.67 0 0 9.67 38.33 48 0 86.33 9.67 96 48 57.67 86.33 96 96 86.33 57.67 48 96 9.67Z"/></svg>`,
             "cache": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 96 96" fill="currentColor"><path d="M0 0h96v96H0z" fill="none"/><path d="m47.95 83.26-37.1-28.84-8.16 6.34L48 96l45.31-35.24-8.21-6.39-37.15 28.9ZM48 70.48l37.05-28.85 8.26-6.39L48 0 2.69 35.24l8.21 6.39L48 70.48Z"/></svg>`,
-            "refresh": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 96 96" fill="currentColor"><path d="M81.89 14.1C73.19 5.4 61.24 0 47.97 0 21.43 0 0 21.48 0 48s21.43 48 47.97 48c22.39 0 41.07-15.3 46.41-36H81.89c-4.92 13.98-18.25 24-33.92 24-19.87 0-36.02-16.14-36.02-36S28.1 12 47.97 12c9.97 0 18.85 4.14 25.34 10.68L53.98 42h42.03V0L81.9 14.1Z"/></svg>`
+            "print": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 96 96" fill="currentColor"><path d="M0 96V0h96" fill="none"/><path d="M81.6 28.8H14.4C6.43 28.8 0 35.23 0 43.2V72h19.2v19.2h57.6V72H96V43.2c0-7.97-6.43-14.4-14.4-14.4ZM67.2 81.6H28.8v-24h38.4v24ZM81.6 48c-2.64 0-4.8-2.16-4.8-4.8s2.16-4.8 4.8-4.8 4.8 2.16 4.8 4.8-2.16 4.8-4.8 4.8ZM76.8 4.8H19.2V24h57.6V4.8Z"/></svg>`,
+            "refresh": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 96 96" fill="currentColor"><path d="M0 96V0h96" fill="none"/><path d="M81.89 14.1C73.19 5.4 61.24 0 47.97 0 21.43 0 0 21.48 0 48s21.43 48 47.97 48c22.39 0 41.07-15.3 46.41-36H81.89c-4.92 13.98-18.25 24-33.92 24-19.87 0-36.02-16.14-36.02-36S28.1 12 47.97 12c9.97 0 18.85 4.14 25.34 10.68L53.98 42h42.03V0L81.9 14.1Z"/></svg>`
       };
 
 // Set defaults
@@ -66,8 +68,8 @@ const mainStyles = `
   --_progress-bar: 0deg;
   display: flex;
   position: fixed;
-  left: 1rem;
-  bottom: 1rem;
+  left: calc(1 * var(--_rem));
+  bottom: calc(1 * var(--_rem));
   z-index: 2147483648;
   gap: calc(0.5 * var(--_rem));
   font-size: calc(0.8 * var(--_rem));
@@ -78,28 +80,24 @@ const mainStyles = `
 }
 #pocketlibrary, #pocketlibrary * {
   box-sizing: border-box;
+  font-family: "Lato", sans-serif;
   -webkit-tap-highlight-color: transparent;
 }
 #pocketlibrary svg {
   overflow: visible;
 }
-#pocketlibrary .pl-settings button, #pocketlibrary .pl-refresh button {
-  all: unset;
-  cursor: pointer;
-}
-#pocketlibrary .pl-settings a, #pocketlibrary .pl-settings button, #pocketlibrary .pl-refresh a, #pocketlibrary .pl-refresh button {
+#pocketlibrary .pl-settings a, #pocketlibrary .pl-refresh a {
   display: flex;
   align-items: center;
   justify-content: center;
   height: calc(2 * var(--_rem));
   width: calc(2 * var(--_rem));
   line-height: 1;
-  color: inherit;
 }
 #pocketlibrary .pl-prepare {
   background-image: conic-gradient(var(--_accent-main) var(--_progress-bar), var(--_bg-main) var(--_progress-bar)) !important;
 }
-#pocketlibrary .pl-prepare button {
+#pocketlibrary .pl-prepare a {
   all: unset;
   display: flex;
   align-items: center;
@@ -111,10 +109,8 @@ const mainStyles = `
   gap: calc(0.5 * var(--_rem));
   line-height: 1;
   padding: 0 calc(0.6 * var(--_rem));
-  cursor: pointer;
-  color: inherit;
 }
-#pocketlibrary .pl-preview a {
+#pocketlibrary .pl-preview a, #pocketlibrary .pl-print a {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -125,19 +121,22 @@ const mainStyles = `
   gap: calc(0.5 * var(--_rem));
   line-height: 1;
   padding: 0 calc(0.6 * var(--_rem));
-  color: inherit;
 }
-#pocketlibrary .pl-settings, #pocketlibrary .pl-prepare, #pocketlibrary .pl-preview, #pocketlibrary .pl-refresh {
+#pocketlibrary .pl-settings, #pocketlibrary .pl-prepare, #pocketlibrary .pl-preview, #pocketlibrary .pl-refresh, #pocketlibrary .pl-print {
   padding: calc(0.15 * var(--_rem));
   background: var(--_bg-main);
   border-radius: calc(2.3 * var(--_rem));
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
-#pocketlibrary .pl-settings svg, #pocketlibrary .pl-prepare svg, #pocketlibrary .pl-preview svg, #pocketlibrary .pl-refresh svg {
+#pocketlibrary .pl-settings, #pocketlibrary .pl-settings a, #pocketlibrary .pl-prepare, #pocketlibrary .pl-prepare a, #pocketlibrary .pl-preview, #pocketlibrary .pl-preview a, #pocketlibrary .pl-refresh, #pocketlibrary .pl-refresh a, #pocketlibrary .pl-print, #pocketlibrary .pl-print a {
+  cursor: pointer;
+  color: inherit;
+}
+#pocketlibrary .pl-settings svg, #pocketlibrary .pl-prepare svg, #pocketlibrary .pl-preview svg, #pocketlibrary .pl-refresh svg, #pocketlibrary .pl-print svg {
   height: calc(1 * var(--_rem));
   width: calc(1 * var(--_rem));
 }
-#pocketlibrary .pl-settings cloak, #pocketlibrary .pl-prepare cloak, #pocketlibrary .pl-preview cloak, #pocketlibrary .pl-refresh cloak {
+#pocketlibrary .pl-settings cloak, #pocketlibrary .pl-prepare cloak, #pocketlibrary .pl-preview cloak, #pocketlibrary .pl-refresh cloak, #pocketlibrary .pl-print cloak {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -146,11 +145,11 @@ const mainStyles = `
   background: var(--_bg-main);
   border-radius: calc(2 * var(--_rem));
 }
-#pocketlibrary .pl-settings:hover cloak, #pocketlibrary .pl-settings:focus cloak, #pocketlibrary .pl-prepare:hover cloak, #pocketlibrary .pl-prepare:focus cloak, #pocketlibrary .pl-preview:hover cloak, #pocketlibrary .pl-preview:focus cloak, #pocketlibrary .pl-refresh:hover cloak, #pocketlibrary .pl-refresh:focus cloak {
+#pocketlibrary .pl-settings:hover cloak, #pocketlibrary .pl-settings:focus cloak, #pocketlibrary .pl-prepare:hover cloak, #pocketlibrary .pl-prepare:focus cloak, #pocketlibrary .pl-preview:hover cloak, #pocketlibrary .pl-preview:focus cloak, #pocketlibrary .pl-refresh:hover cloak, #pocketlibrary .pl-refresh:focus cloak, #pocketlibrary .pl-print:hover cloak, #pocketlibrary .pl-print:focus cloak {
   color: var(--_accent-main);
   background: var(--_bg-hover);
 }
-#pocketlibrary .pl-settings:active a, #pocketlibrary .pl-settings:active button, #pocketlibrary .pl-prepare:active a, #pocketlibrary .pl-prepare:active button, #pocketlibrary .pl-preview:active a, #pocketlibrary .pl-preview:active button, #pocketlibrary .pl-refresh:active a, #pocketlibrary .pl-refresh:active button {
+#pocketlibrary .pl-settings:active a, #pocketlibrary .pl-prepare:active a, #pocketlibrary .pl-preview:active a, #pocketlibrary .pl-refresh:active a, #pocketlibrary .pl-print:active a {
   transform: translateY(3px);
 }
 #pocketlibrary:has(.pl-preview a[href]) .pl-prepare {
@@ -158,6 +157,12 @@ const mainStyles = `
 }
 #pocketlibrary:has(.pl-preview a:not([href])) .pl-preview, #pocketlibrary:has(.pl-preview a:not([href])) .pl-refresh {
   display: none;
+}
+
+@media print {
+  #pocketlibrary {
+    display: none !important;
+  }
 }/*# sourceMappingURL=1-1-styles-main.part.css.map */
 `;
 
@@ -228,11 +233,6 @@ heading svg {
   @top-center {
     content: none;
   }
-}
-@media print {
-  #pocketlibrary {
-    display: none;
-  }
 }/*# sourceMappingURL=1-4-styles-book.part.css.map */
 `;
 
@@ -263,22 +263,16 @@ function addstyles() {
 }
 
 // Add fonts to DOM head
-/*function addfonts() {
-    let sSans = document.createElement('link'),
-        sSerif = document.createElement('link');
+function addfont() {
+    let lato = document.createElement('link');
 
-    sSans.href = fontsans;
-    sSerif.href = fontserif;
-    sSans.id = 'fontSourceSans';
-    sSerif.id = 'fontSourceSerif';
-    sSans.setAttribute('rel','stylesheet');
-    sSerif.setAttribute('rel','stylesheet');
-    sSans.setAttribute('type','text/css');
-    sSerif.setAttribute('type','text/css');
-
-    document.head.appendChild(sSans);
-    document.head.appendChild(sSerif);
-}*/
+    lato.href = fontlato;
+    lato.id = 'fontLato';
+    lato.setAttribute('rel','stylesheet');
+    lato.setAttribute('type','text/css');
+    
+    document.head.appendChild(lato);
+}
 
 // Add panel to DOM
 function addpanel() {
@@ -295,10 +289,10 @@ function addpanel() {
         </div>
         <div class="pl-prepare">
             <cloak>
-                <button>
+                <a>
                     ${getIcon.cache}
                     <span>Prepare</span>
-                </button>
+                </a>
             </cloak>
         </div>
         <div class="pl-preview">
@@ -311,9 +305,9 @@ function addpanel() {
         </div>
         <div class="pl-refresh">
             <cloak>
-                <button>
+                <a>
                     ${getIcon.refresh}
-                </button>
+                </a>
             </cloak>
         </div>
     `.replace(/\n/g,'').replace(/>\s+</g,'><').replace(/^\s+/g,'').replace(/\s+$/g,'');
@@ -331,27 +325,12 @@ function getbookpanel() {
                 </a>
             </cloak>
         </div>
-        <div class="pl-prepare">
+        <div class="pl-print">
             <cloak>
-                <button>
-                    ${getIcon.cache}
-                    <span>Prepare</span>
-                </button>
-            </cloak>
-        </div>
-        <div class="pl-preview">
-            <cloak>
-                <a target="_blank">
-                    ${getIcon.preview}
-                    <span>Preview</span>
+                <a>
+                    ${getIcon.print}
+                    <span>Print to PDF</span>
                 </a>
-            </cloak>
-        </div>
-        <div class="pl-refresh">
-            <cloak>
-                <button>
-                    ${getIcon.refresh}
-                </button>
             </cloak>
         </div>
     `.replace(/\n/g,'').replace(/>\s+</g,'><').replace(/^\s+/g,'').replace(/\s+$/g,'');
@@ -382,10 +361,16 @@ document.addEventListener('click', (e) => {
 // window.PagedPolyfill.preview();
 // make another js for gui functions in book preview
 // run this command every time any style is changed
-// PDF Filename
-function getFilename() {
-    return `${pl_var.hostString} - ${pl_var.title} (${pl_var.author})`;
-}
+// Book GUI js
+const bookGUI = `
+document.addEventListener('click', (e) => {
+    if (e.target.closest('.pl-print')) {
+        setTimeout(() => {
+            window.print();
+        }, 100);
+    }
+});
+`;
 
 // Create an iframe for any url
 function createFrame(link) {
@@ -443,23 +428,37 @@ function pocketPDF() {
         <!DOCTYPE html>
         <html>
             <head>
-                <title>${getFilename()}</title>
+                <title>${pl_var.hostString} - ${pl_var.title} (${pl_var.author})</title>
 
                 <meta http-equiv="content-type" content="text/html; charset=utf-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
                 <meta name="HandheldFriendly" content="true">
-                <meta name="description" content="A free and easy way to learn touch typing on Colemak and other keyboard layouts.">
-                <meta name="author" content="Colemak Camp">
+                <meta name="description" content="${pl_var.title} by ${pl_var.author}.">
+                <meta name="author" content="${pl_var.author}">
 
                 <link rel="shortcut icon" href="data:image/svg+xml;base64,${btoa(getIcon.logo.replace('currentColor','#e64141'))}" type="image/x-icon">
                 <link href="${normalcss}" id="modernNormalize" rel="stylesheet" type="text/css">
                 <link href="${fontsans}" id="fontSans" rel="stylesheet" type="text/css">
                 <link href="${fontserif}" id="fontSerif" rel="stylesheet" type="text/css">
+                <style type="text/css" data-pagedjs-ignore>${mainStyles}</style>
                 <style type="text/css">${bookStyles + pl_var.specialStyles}</style>
                 <script src="${libpaged}" type="text/javascript"></script>
             </head>
-            <body>
-                ${pl_var.textHeading}CONTENT_HERE<div id="pocketlibrary">${getbookpanel()}</div>
+            <body style="opacity: 0">
+                <div id="pl-content" style="display:none">${pl_var.textHeading}CONTENT_HERE</div>
+                <div id="pl-container"></div>
+                <div id="pocketlibrary">${getbookpanel()}</div>
+
+                <script type="text/javascript">
+                    const contentSource = document.getElementById("pl-content");
+                    const contentPreview = document.getElementById("pl-container");
+                    const paged = new Paged.Previewer();
+
+                    paged.preview(contentSource.innerHTML, null, contentPreview).then((flow) => {
+                        document.body.removeAttribute('style');
+                    });
+                </script>
+                <script type="text/javascript">${bookGUI}</script>
             </body>
         </html>
     `.replace(/\n/g,'').replace(/>\s+</g,'><').replace(/^\s+/g,'').replace(/\s+$/g,'').replace('CONTENT_HERE', sessionStorage.pl_content);
@@ -537,14 +536,12 @@ if (window.location.hostname.includes('cliffsnotes.com')) {
 
 // Run when DOM is ready
 if (document.readyState === "complete" || document.readyState === "interactive") {
-    addlib();
-    addfonts();
+    addfont();
     addstyles();
     runAll();
 } else {
     document.addEventListener('DOMContentLoaded', () => {
-        addlib();
-        addfonts();
+        addfont();
         addstyles();
         runAll();
     });

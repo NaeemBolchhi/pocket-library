@@ -1,8 +1,9 @@
 // Globally available constants
-const libpaged = 'https://naeembolchhi.github.io/pocket-library/lib/paged.min.js',
+const libpaged = 'https://naeembolchhi.github.io/pocket-library/lib/paged.js',
       normalcss = 'https://naeembolchhi.github.io/pocket-library/lib/modern-normalize.min.css',
       fontsans = 'https://naeembolchhi.github.io/pocket-library/fonts/sourcesans.min.css',
-      fontserif = 'https://naeembolchhi.github.io/pocket-library/fonts/sourceserif.min.css';
+      fontserif = 'https://naeembolchhi.github.io/pocket-library/fonts/sourceserif.min.css',
+      fontlato = 'https://naeembolchhi.github.io/pocket-library/fonts/lato.min.css';
 
       getIcon = {
             "logo": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 300 300" fill="currentColor"><path d="m284.11 232.24.02-.01-.1-.05.08.06zm-143.84 43.47-84.84-63.48-39.57 20L149.99 300l133.96-67.68-143.68 43.39z"/><path d="m284.14 232.29-.07-.08.05.09.02-.01zm-150.05-8.33-58.01-88.67-44.03 5.25L134.92 250.1l149.02-17.78-149.85-8.36z"/><path d="M146.01 173.14 121.83 70.01 78.64 59.89l59.19 138.14 146.31 34.3-138.13-59.19z"/><path d="m275.77 82.28 8.37 150.05-125.76-82.28L150.01 0l125.76 82.28z"/></svg>`,
@@ -19,7 +20,8 @@ const libpaged = 'https://naeembolchhi.github.io/pocket-library/lib/paged.min.js
             // "finalize": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 96 96" fill="currentColor"><path d="M0 0h96v96H0z" fill="none"/><path d="m72.63 26.14-5.82-5.82L40.63 46.5l5.82 5.82 26.18-26.18Zm17.51-5.83L46.45 64 29.19 46.78l-5.82 5.82 23.08 23.08L96 26.13l-5.86-5.82ZM0 52.6l23.08 23.08 5.82-5.82L5.86 46.78 0 52.6Z"/></svg>`,
             // "clear": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 96 96" fill="currentColor"><path d="M0 0h96v96H0z" fill="none"/><path d="M96 9.67 86.33 0 48 38.33 9.67 0 0 9.67 38.33 48 0 86.33 9.67 96 48 57.67 86.33 96 96 86.33 57.67 48 96 9.67Z"/></svg>`,
             "cache": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 96 96" fill="currentColor"><path d="M0 0h96v96H0z" fill="none"/><path d="m47.95 83.26-37.1-28.84-8.16 6.34L48 96l45.31-35.24-8.21-6.39-37.15 28.9ZM48 70.48l37.05-28.85 8.26-6.39L48 0 2.69 35.24l8.21 6.39L48 70.48Z"/></svg>`,
-            "refresh": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 96 96" fill="currentColor"><path d="M81.89 14.1C73.19 5.4 61.24 0 47.97 0 21.43 0 0 21.48 0 48s21.43 48 47.97 48c22.39 0 41.07-15.3 46.41-36H81.89c-4.92 13.98-18.25 24-33.92 24-19.87 0-36.02-16.14-36.02-36S28.1 12 47.97 12c9.97 0 18.85 4.14 25.34 10.68L53.98 42h42.03V0L81.9 14.1Z"/></svg>`
+            "print": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 96 96" fill="currentColor"><path d="M0 96V0h96" fill="none"/><path d="M81.6 28.8H14.4C6.43 28.8 0 35.23 0 43.2V72h19.2v19.2h57.6V72H96V43.2c0-7.97-6.43-14.4-14.4-14.4ZM67.2 81.6H28.8v-24h38.4v24ZM81.6 48c-2.64 0-4.8-2.16-4.8-4.8s2.16-4.8 4.8-4.8 4.8 2.16 4.8 4.8-2.16 4.8-4.8 4.8ZM76.8 4.8H19.2V24h57.6V4.8Z"/></svg>`,
+            "refresh": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 96 96" fill="currentColor"><path d="M0 96V0h96" fill="none"/><path d="M81.89 14.1C73.19 5.4 61.24 0 47.97 0 21.43 0 0 21.48 0 48s21.43 48 47.97 48c22.39 0 41.07-15.3 46.41-36H81.89c-4.92 13.98-18.25 24-33.92 24-19.87 0-36.02-16.14-36.02-36S28.1 12 47.97 12c9.97 0 18.85 4.14 25.34 10.68L53.98 42h42.03V0L81.9 14.1Z"/></svg>`
       };
 
 // Set defaults

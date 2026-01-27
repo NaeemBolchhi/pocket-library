@@ -13,10 +13,10 @@ function addpanel() {
         </div>
         <div class="pl-prepare">
             <cloak>
-                <button>
+                <a>
                     ${getIcon.cache}
                     <span>Prepare</span>
-                </button>
+                </a>
             </cloak>
         </div>
         <div class="pl-preview">
@@ -29,9 +29,9 @@ function addpanel() {
         </div>
         <div class="pl-refresh">
             <cloak>
-                <button>
+                <a>
                     ${getIcon.refresh}
-                </button>
+                </a>
             </cloak>
         </div>
     `.replace(/\n/g,'').replace(/>\s+</g,'><').replace(/^\s+/g,'').replace(/\s+$/g,'');
@@ -49,27 +49,12 @@ function getbookpanel() {
                 </a>
             </cloak>
         </div>
-        <div class="pl-prepare">
+        <div class="pl-print">
             <cloak>
-                <button>
-                    ${getIcon.cache}
-                    <span>Prepare</span>
-                </button>
-            </cloak>
-        </div>
-        <div class="pl-preview">
-            <cloak>
-                <a target="_blank">
-                    ${getIcon.preview}
-                    <span>Preview</span>
+                <a>
+                    ${getIcon.print}
+                    <span>Print to PDF</span>
                 </a>
-            </cloak>
-        </div>
-        <div class="pl-refresh">
-            <cloak>
-                <button>
-                    ${getIcon.refresh}
-                </button>
             </cloak>
         </div>
     `.replace(/\n/g,'').replace(/>\s+</g,'><').replace(/^\s+/g,'').replace(/\s+$/g,'');
