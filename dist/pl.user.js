@@ -1,13 +1,12 @@
 // ==UserScript==
 // @name         Pocket Library
 // @namespace    https://naeembolchhi.github.io/
-// @version      0.20260027180212
+// @version      0.20260027182729
 // @description  Download articles, summaries, analyses, and notes from various English Literature websites as PDF.
 // @author       NaeemBolchhi
 // @license      GPL-3.0-or-later
 // @icon         https://naeembolchhi.github.io/pocket-library/icon.svg
-// @match        https://www.cliffsnotes.com/*
-// @match        http://www.cliffsnotes.com/*
+// @match        http*://www.cliffsnotes.com/*
 // @run-at       document-body
 // @grant        none
 // @downloadURL  https://naeembolchhi.github.io/pocket-library/dist/pl.user.js
@@ -320,8 +319,6 @@ function addpanel() {
 // Prepare PDF
 function preparePDF() {
     if (getPagelist() === true) {
-        pl_var.loop = 0;
-        document.querySelector('#pocketlibrary').style.setProperty('--_progress-bar', '0deg');
         looper();
     }
 }
@@ -334,12 +331,9 @@ function updateProgress(input) {
 }
 
 document.addEventListener('click', (e) => {
-    if (e.target.closest('.pl-prepare:not(.active)')) {
+    if (e.target.closest('.pl-prepare')) {
         preparePDF();
-        e.target.closest('.pl-prepare:not(.active)').classList.add('active');
-    }
-    if (e.target.closest('.pl-refresh')) {
-        e.preventDefault();
+    } else if (e.target.closest('.pl-refresh')) {
         window.location.reload(true);
     }
 });
@@ -364,9 +358,7 @@ function createFrame(link) {
 
 // Delete an iframe
 function deleteFrame(src) {
-    try {
-        document.querySelector(`iframe.pl-iframe[src="${src}"]`).remove();
-    } catch {}
+    document.querySelector(`iframe.pl-iframe[src="${src}"]`).remove();
 }
 
 // Loop through link list
@@ -393,7 +385,7 @@ function looper() {
 
 // Arrange heading of the document
 function setHeading() {
-    return `
+    pl_var.textHeading = `
         <heading>
             <htitle>${pl_var.title}</htitle>
             <hauthor>${pl_var.author}</hauthor>
@@ -404,6 +396,8 @@ function setHeading() {
 
 // Put content together in a new tab
 function pocketPDF() {
+    setHeading();
+
     const myHTML = `
         <!DOCTYPE html>
         <html>
@@ -423,7 +417,7 @@ function pocketPDF() {
                 <script src="${libpaged}" type="text/javascript"></script>
                 <style type="text/css">${bookStyles + pl_var.specialStyles}</style>
             </head>
-            <body>${setHeading()}CONTENT_HERE</body>
+            <body>${pl_var.textHeading}CONTENT_HERE</body>
         </html>
     `.replace(/\n/g,'').replace(/>\s+</g,'><').replace(/^\s+/g,'').replace(/\s+$/g,'').replace('CONTENT_HERE', sessionStorage.pl_content);
 
@@ -432,8 +426,6 @@ function pocketPDF() {
     const blobURL = URL.createObjectURL(blob);
 
     document.querySelector('#pocketlibrary .pl-preview a').href = blobURL;
-
-    document.querySelector('.pl-prepare').classList.remove('active');
 
     window.open(blobURL, '_blank');
 }

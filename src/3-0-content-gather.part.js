@@ -15,9 +15,7 @@ function createFrame(link) {
 
 // Delete an iframe
 function deleteFrame(src) {
-    try {
-        document.querySelector(`iframe.pl-iframe[src="${src}"]`).remove();
-    } catch {}
+    document.querySelector(`iframe.pl-iframe[src="${src}"]`).remove();
 }
 
 // Loop through link list
@@ -44,7 +42,7 @@ function looper() {
 
 // Arrange heading of the document
 function setHeading() {
-    return `
+    pl_var.textHeading = `
         <heading>
             <htitle>${pl_var.title}</htitle>
             <hauthor>${pl_var.author}</hauthor>
@@ -55,6 +53,8 @@ function setHeading() {
 
 // Put content together in a new tab
 function pocketPDF() {
+    setHeading();
+
     const myHTML = `
         <!DOCTYPE html>
         <html>
@@ -74,7 +74,7 @@ function pocketPDF() {
                 <script src="${libpaged}" type="text/javascript"></script>
                 <style type="text/css">${bookStyles + pl_var.specialStyles}</style>
             </head>
-            <body>${setHeading()}CONTENT_HERE</body>
+            <body>${pl_var.textHeading}CONTENT_HERE</body>
         </html>
     `.replace(/\n/g,'').replace(/>\s+</g,'><').replace(/^\s+/g,'').replace(/\s+$/g,'').replace('CONTENT_HERE', sessionStorage.pl_content);
 
@@ -83,8 +83,6 @@ function pocketPDF() {
     const blobURL = URL.createObjectURL(blob);
 
     document.querySelector('#pocketlibrary .pl-preview a').href = blobURL;
-
-    document.querySelector('.pl-prepare').classList.remove('active');
 
     window.open(blobURL, '_blank');
 }

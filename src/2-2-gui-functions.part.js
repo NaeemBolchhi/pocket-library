@@ -1,8 +1,6 @@
 // Prepare PDF
 function preparePDF() {
     if (getPagelist() === true) {
-        pl_var.loop = 0;
-        document.querySelector('#pocketlibrary').style.setProperty('--_progress-bar', '0deg');
         looper();
     }
 }
@@ -15,12 +13,9 @@ function updateProgress(input) {
 }
 
 document.addEventListener('click', (e) => {
-    if (e.target.closest('.pl-prepare:not(.active)')) {
+    if (e.target.closest('.pl-prepare')) {
         preparePDF();
-        e.target.closest('.pl-prepare:not(.active)').classList.add('active');
-    }
-    if (e.target.closest('.pl-refresh')) {
-        e.preventDefault();
+    } else if (e.target.closest('.pl-refresh')) {
         window.location.reload(true);
     }
 });
