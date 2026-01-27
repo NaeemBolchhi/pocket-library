@@ -27,6 +27,13 @@ function addpanel() {
                 </a>
             </cloak>
         </div>
+        <div class="pl-refresh">
+            <cloak>
+                <button>
+                    ${getIcon.refresh}
+                </button>
+            </cloak>
+        </div>
     `.replace(/\n/g,'').replace(/>\s+</g,'><').replace(/^\s+/g,'').replace(/\s+$/g,'');
 
     document.body.appendChild(maindiv);

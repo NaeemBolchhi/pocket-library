@@ -35,8 +35,12 @@
 
     @include noselect();
 
-    .pl-settings {
-        a {
+    .pl-settings, .pl-refresh {
+        button {
+            all: unset;
+            cursor: pointer;
+        }
+        a, button {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -77,7 +81,7 @@
             color: inherit;
         }
     }
-    .pl-settings, .pl-prepare, .pl-preview {
+    .pl-settings, .pl-prepare, .pl-preview, .pl-refresh {
         padding: calc(.15 * var(--_rem));
         background: var(--_bg-main);
         border-radius: calc(2.3 * var(--_rem));
@@ -108,11 +112,15 @@
         }
     }
 
-    &:has(.pl-preview a[href]) .pl-prepare {
-        display: none;
+    &:has(.pl-preview a[href]) {
+        .pl-prepare {
+            display: none;
+        }
     }
 
-    &:has(.pl-preview a:not([href])) .pl-preview {
-        display: none;
+    &:has(.pl-preview a:not([href])) {
+        .pl-preview, .pl-refresh {
+            display: none;
+        }
     }
 }

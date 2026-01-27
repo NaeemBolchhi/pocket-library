@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name         Pocket Library
 // @namespace    https://naeembolchhi.github.io/
-// @version      0.1
+// @version      0.20260027180212
 // @description  Download articles, summaries, analyses, and notes from various English Literature websites as PDF.
 // @author       NaeemBolchhi
 // @license      GPL-3.0-or-later
 // @icon         https://naeembolchhi.github.io/pocket-library/icon.svg
-// @match        http*://www.cliffsnotes.com/*
+// @match        https://www.cliffsnotes.com/*
+// @match        http://www.cliffsnotes.com/*
 // @run-at       document-body
 // @grant        none
 // @downloadURL  https://naeembolchhi.github.io/pocket-library/dist/pl.user.js
@@ -33,7 +34,8 @@ const libpaged = 'https://naeembolchhi.github.io/pocket-library/lib/paged.polyfi
             // "add": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 96 96" fill="currentColor"><path d="M0 0h96v96H0z" fill="none"/><path d="M96 54.86H54.86V96H41.15V54.86H0V41.15h41.14V0h13.71v41.14h41.14v13.71Z"/></svg>`,
             // "finalize": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 96 96" fill="currentColor"><path d="M0 0h96v96H0z" fill="none"/><path d="m72.63 26.14-5.82-5.82L40.63 46.5l5.82 5.82 26.18-26.18Zm17.51-5.83L46.45 64 29.19 46.78l-5.82 5.82 23.08 23.08L96 26.13l-5.86-5.82ZM0 52.6l23.08 23.08 5.82-5.82L5.86 46.78 0 52.6Z"/></svg>`,
             // "clear": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 96 96" fill="currentColor"><path d="M0 0h96v96H0z" fill="none"/><path d="M96 9.67 86.33 0 48 38.33 9.67 0 0 9.67 38.33 48 0 86.33 9.67 96 48 57.67 86.33 96 96 86.33 57.67 48 96 9.67Z"/></svg>`,
-            "cache": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 96 96" fill="currentColor"><path d="M0 0h96v96H0z" fill="none"/><path d="m47.95 83.26-37.1-28.84-8.16 6.34L48 96l45.31-35.24-8.21-6.39-37.15 28.9ZM48 70.48l37.05-28.85 8.26-6.39L48 0 2.69 35.24l8.21 6.39L48 70.48Z"/></svg>`
+            "cache": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 96 96" fill="currentColor"><path d="M0 0h96v96H0z" fill="none"/><path d="m47.95 83.26-37.1-28.84-8.16 6.34L48 96l45.31-35.24-8.21-6.39-37.15 28.9ZM48 70.48l37.05-28.85 8.26-6.39L48 0 2.69 35.24l8.21 6.39L48 70.48Z"/></svg>`,
+            "refresh": `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 96 96" fill="currentColor"><path d="M81.89 14.1C73.19 5.4 61.24 0 47.97 0 21.43 0 0 21.48 0 48s21.43 48 47.97 48c22.39 0 41.07-15.3 46.41-36H81.89c-4.92 13.98-18.25 24-33.92 24-19.87 0-36.02-16.14-36.02-36S28.1 12 47.97 12c9.97 0 18.85 4.14 25.34 10.68L53.98 42h42.03V0L81.9 14.1Z"/></svg>`
       };
 
 // Set defaults
@@ -82,7 +84,11 @@ const mainStyles = `
 #pocketlibrary svg {
   overflow: visible;
 }
-#pocketlibrary .pl-settings a {
+#pocketlibrary .pl-settings button, #pocketlibrary .pl-refresh button {
+  all: unset;
+  cursor: pointer;
+}
+#pocketlibrary .pl-settings a, #pocketlibrary .pl-settings button, #pocketlibrary .pl-refresh a, #pocketlibrary .pl-refresh button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -122,17 +128,17 @@ const mainStyles = `
   padding: 0 calc(0.6 * var(--_rem));
   color: inherit;
 }
-#pocketlibrary .pl-settings, #pocketlibrary .pl-prepare, #pocketlibrary .pl-preview {
+#pocketlibrary .pl-settings, #pocketlibrary .pl-prepare, #pocketlibrary .pl-preview, #pocketlibrary .pl-refresh {
   padding: calc(0.15 * var(--_rem));
   background: var(--_bg-main);
   border-radius: calc(2.3 * var(--_rem));
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
-#pocketlibrary .pl-settings svg, #pocketlibrary .pl-prepare svg, #pocketlibrary .pl-preview svg {
+#pocketlibrary .pl-settings svg, #pocketlibrary .pl-prepare svg, #pocketlibrary .pl-preview svg, #pocketlibrary .pl-refresh svg {
   height: calc(1 * var(--_rem));
   width: calc(1 * var(--_rem));
 }
-#pocketlibrary .pl-settings cloak, #pocketlibrary .pl-prepare cloak, #pocketlibrary .pl-preview cloak {
+#pocketlibrary .pl-settings cloak, #pocketlibrary .pl-prepare cloak, #pocketlibrary .pl-preview cloak, #pocketlibrary .pl-refresh cloak {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -141,17 +147,17 @@ const mainStyles = `
   background: var(--_bg-main);
   border-radius: calc(2 * var(--_rem));
 }
-#pocketlibrary .pl-settings:hover cloak, #pocketlibrary .pl-settings:focus cloak, #pocketlibrary .pl-prepare:hover cloak, #pocketlibrary .pl-prepare:focus cloak, #pocketlibrary .pl-preview:hover cloak, #pocketlibrary .pl-preview:focus cloak {
+#pocketlibrary .pl-settings:hover cloak, #pocketlibrary .pl-settings:focus cloak, #pocketlibrary .pl-prepare:hover cloak, #pocketlibrary .pl-prepare:focus cloak, #pocketlibrary .pl-preview:hover cloak, #pocketlibrary .pl-preview:focus cloak, #pocketlibrary .pl-refresh:hover cloak, #pocketlibrary .pl-refresh:focus cloak {
   color: var(--_accent-main);
   background: var(--_bg-hover);
 }
-#pocketlibrary .pl-settings:active a, #pocketlibrary .pl-settings:active button, #pocketlibrary .pl-prepare:active a, #pocketlibrary .pl-prepare:active button, #pocketlibrary .pl-preview:active a, #pocketlibrary .pl-preview:active button {
+#pocketlibrary .pl-settings:active a, #pocketlibrary .pl-settings:active button, #pocketlibrary .pl-prepare:active a, #pocketlibrary .pl-prepare:active button, #pocketlibrary .pl-preview:active a, #pocketlibrary .pl-preview:active button, #pocketlibrary .pl-refresh:active a, #pocketlibrary .pl-refresh:active button {
   transform: translateY(3px);
 }
 #pocketlibrary:has(.pl-preview a[href]) .pl-prepare {
   display: none;
 }
-#pocketlibrary:has(.pl-preview a:not([href])) .pl-preview {
+#pocketlibrary:has(.pl-preview a:not([href])) .pl-preview, #pocketlibrary:has(.pl-preview a:not([href])) .pl-refresh {
   display: none;
 }/*# sourceMappingURL=1-1-styles-main.part.css.map */
 `;
@@ -299,6 +305,13 @@ function addpanel() {
                 </a>
             </cloak>
         </div>
+        <div class="pl-refresh">
+            <cloak>
+                <button>
+                    ${getIcon.refresh}
+                </button>
+            </cloak>
+        </div>
     `.replace(/\n/g,'').replace(/>\s+</g,'><').replace(/^\s+/g,'').replace(/\s+$/g,'');
 
     document.body.appendChild(maindiv);
@@ -307,6 +320,8 @@ function addpanel() {
 // Prepare PDF
 function preparePDF() {
     if (getPagelist() === true) {
+        pl_var.loop = 0;
+        document.querySelector('#pocketlibrary').style.setProperty('--_progress-bar', '0deg');
         looper();
     }
 }
@@ -319,11 +334,19 @@ function updateProgress(input) {
 }
 
 document.addEventListener('click', (e) => {
-    if (e.target.closest('.pl-prepare')) {
+    if (e.target.closest('.pl-prepare:not(.active)')) {
         preparePDF();
+        e.target.closest('.pl-prepare:not(.active)').classList.add('active');
+    }
+    if (e.target.closest('.pl-refresh')) {
+        e.preventDefault();
+        window.location.reload(true);
     }
 });
 
+// window.PagedPolyfill.preview();
+// make another js for gui functions in book preview
+// run this command every time any style is changed
 // PDF Filename
 function getFilename() {
     return `${pl_var.hostString} - ${pl_var.title} (${pl_var.author})`;
@@ -341,7 +364,9 @@ function createFrame(link) {
 
 // Delete an iframe
 function deleteFrame(src) {
-    document.querySelector(`iframe.pl-iframe[src="${src}"]`).remove();
+    try {
+        document.querySelector(`iframe.pl-iframe[src="${src}"]`).remove();
+    } catch {}
 }
 
 // Loop through link list
@@ -368,7 +393,7 @@ function looper() {
 
 // Arrange heading of the document
 function setHeading() {
-    pl_var.textHeading = `
+    return `
         <heading>
             <htitle>${pl_var.title}</htitle>
             <hauthor>${pl_var.author}</hauthor>
@@ -379,8 +404,6 @@ function setHeading() {
 
 // Put content together in a new tab
 function pocketPDF() {
-    setHeading();
-
     const myHTML = `
         <!DOCTYPE html>
         <html>
@@ -400,7 +423,7 @@ function pocketPDF() {
                 <script src="${libpaged}" type="text/javascript"></script>
                 <style type="text/css">${bookStyles + pl_var.specialStyles}</style>
             </head>
-            <body>${pl_var.textHeading}CONTENT_HERE</body>
+            <body>${setHeading()}CONTENT_HERE</body>
         </html>
     `.replace(/\n/g,'').replace(/>\s+</g,'><').replace(/^\s+/g,'').replace(/\s+$/g,'').replace('CONTENT_HERE', sessionStorage.pl_content);
 
@@ -409,6 +432,8 @@ function pocketPDF() {
     const blobURL = URL.createObjectURL(blob);
 
     document.querySelector('#pocketlibrary .pl-preview a').href = blobURL;
+
+    document.querySelector('.pl-prepare').classList.remove('active');
 
     window.open(blobURL, '_blank');
 }
