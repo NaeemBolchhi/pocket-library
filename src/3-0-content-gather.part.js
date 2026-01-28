@@ -37,7 +37,7 @@ function looper() {
 
 // Arrange heading of the document
 function setHeading() {
-    pl_var.textHeading = `
+    return `
         <heading>
             <htitle>${pl_var.title}</htitle>
             <hauthor>${pl_var.author}</hauthor>
@@ -48,16 +48,14 @@ function setHeading() {
 
 // Put content together in a new tab
 function pocketPDF() {
-    setHeading();
-
-    const myHTML = `
+    const bookHTML = `
         <!DOCTYPE html>
         <html>
             <head>
                 <title>${pl_var.hostString} - ${pl_var.title} (${pl_var.author})</title>
 
                 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
                 <meta name="HandheldFriendly" content="true">
                 <meta name="description" content="${pl_var.title} by ${pl_var.author}.">
                 <meta name="author" content="${pl_var.author}">
@@ -72,7 +70,7 @@ function pocketPDF() {
                 <script src="${libpaged}" type="text/javascript"></script>
             </head>
             <body style="opacity: 0">
-                <div id="pl-content" style="display:none">${pl_var.textHeading}CONTENT_HERE</div>
+                <div id="pl-content" style="display:none">${setHeading() + sessionStorage.pl_content}</div>
                 <div id="pl-container"></div>
                 <div id="pocketlibrary">${getbookpanel()}</div>
 
@@ -88,15 +86,16 @@ function pocketPDF() {
                 <script type="text/javascript">${bookGUI}</script>
             </body>
         </html>
-    `.replace(/\n/g,'').replace(/>\s+</g,'><').replace(/^\s+/g,'').replace(/\s+$/g,'').replace('CONTENT_HERE', sessionStorage.pl_content);
+    `;
 
-    const blob = new Blob([myHTML], { type: 'text/html' });
+    const blob = new Blob([bookHTML], {type: 'text/html'});
 
     const blobURL = URL.createObjectURL(blob);
 
     document.querySelector('#pocketlibrary .pl-preview a').href = blobURL;
 
-    window.open(blobURL, '_blank');
+    document.querySelector('#pocketlibrary .pl-preview a').click();
+    // window.open(blobURL, '_blank');
 }
 
 window.addEventListener('message', (e) => {

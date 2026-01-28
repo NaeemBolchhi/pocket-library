@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pocket Library
 // @namespace    https://naeembolchhi.github.io/
-// @version      0.20260028102507
+// @version      0.20260028122847
 // @description  Download articles, summaries, analyses, and notes from various English Literature websites as PDF.
 // @author       NaeemBolchhi
 // @license      GPL-3.0-or-later
@@ -137,9 +137,6 @@ const mainStyles = `
 #pocketlibrary .pl-settings svg, #pocketlibrary .pl-prepare svg, #pocketlibrary .pl-preview svg, #pocketlibrary .pl-refresh svg, #pocketlibrary .pl-print svg {
   height: calc(1 * var(--_rem));
   width: calc(1 * var(--_rem));
-}
-#pocketlibrary .pl-settings span, #pocketlibrary .pl-prepare span, #pocketlibrary .pl-preview span, #pocketlibrary .pl-refresh span, #pocketlibrary .pl-print span {
-  padding-bottom: calc(0.2 * var(--_rem));
 }
 #pocketlibrary .pl-settings cloak, #pocketlibrary .pl-prepare cloak, #pocketlibrary .pl-preview cloak, #pocketlibrary .pl-refresh cloak, #pocketlibrary .pl-print cloak {
   display: flex;
@@ -363,11 +360,24 @@ document.addEventListener('click', (e) => {
     }
 });
 
+// When they zoom in, keep UI stable
+function stabilizeUiScale() {
+    const baseSize = 20;
+    const zoomLevel = window.devicePixelRatio;
+
+    // Divide the base size by the zoom level to get the inverse
+    const adjustedSize = baseSize / zoomLevel;
+
+    document.getElementById('pocketlibrary').style.setProperty('--_rem', adjustedSize + 'px');
+}
+window.addEventListener('resize', stabilizeUiScale);
+
 // window.PagedPolyfill.preview();
 // make another js for gui functions in book preview
 // run this command every time any style is changed
 // Book GUI js
 const bookGUI = `
+// When they click print
 document.addEventListener('click', (e) => {
     if (e.target.closest('.pl-print')) {
         setTimeout(() => {
@@ -375,6 +385,18 @@ document.addEventListener('click', (e) => {
         }, 100);
     }
 });
+
+// When they zoom in, keep UI stable
+function stabilizeUiScale() {
+    const baseSize = 20;
+    const zoomLevel = window.devicePixelRatio;
+
+    // Divide the base size by the zoom level to get the inverse
+    const adjustedSize = baseSize / zoomLevel;
+
+    document.getElementById('pocketlibrary').style.setProperty('--_rem', adjustedSize + 'px');
+}
+window.addEventListener('resize', stabilizeUiScale);
 `;
 
 // Create an iframe for any url
@@ -416,7 +438,7 @@ function looper() {
 
 // Arrange heading of the document
 function setHeading() {
-    pl_var.textHeading = `
+    return `
         <heading>
             <htitle>${pl_var.title}</htitle>
             <hauthor>${pl_var.author}</hauthor>
@@ -427,16 +449,14 @@ function setHeading() {
 
 // Put content together in a new tab
 function pocketPDF() {
-    setHeading();
-
-    const myHTML = `
+    const bookHTML = `
         <!DOCTYPE html>
         <html>
             <head>
                 <title>${pl_var.hostString} - ${pl_var.title} (${pl_var.author})</title>
 
                 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
                 <meta name="HandheldFriendly" content="true">
                 <meta name="description" content="${pl_var.title} by ${pl_var.author}.">
                 <meta name="author" content="${pl_var.author}">
@@ -451,7 +471,7 @@ function pocketPDF() {
                 <script src="${libpaged}" type="text/javascript"></script>
             </head>
             <body style="opacity: 0">
-                <div id="pl-content" style="display:none">${pl_var.textHeading}CONTENT_HERE</div>
+                <div id="pl-content" style="display:none">${setHeading() + sessionStorage.pl_content}</div>
                 <div id="pl-container"></div>
                 <div id="pocketlibrary">${getbookpanel()}</div>
 
@@ -467,15 +487,16 @@ function pocketPDF() {
                 <script type="text/javascript">${bookGUI}</script>
             </body>
         </html>
-    `.replace(/\n/g,'').replace(/>\s+</g,'><').replace(/^\s+/g,'').replace(/\s+$/g,'').replace('CONTENT_HERE', sessionStorage.pl_content);
+    `;
 
-    const blob = new Blob([myHTML], { type: 'text/html' });
+    const blob = new Blob([bookHTML], {type: 'text/html'});
 
     const blobURL = URL.createObjectURL(blob);
 
     document.querySelector('#pocketlibrary .pl-preview a').href = blobURL;
 
-    window.open(blobURL, '_blank');
+    document.querySelector('#pocketlibrary .pl-preview a').click();
+    // window.open(blobURL, '_blank');
 }
 
 window.addEventListener('message', (e) => {
