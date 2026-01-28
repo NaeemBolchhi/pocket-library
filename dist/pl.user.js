@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pocket Library
 // @namespace    https://naeembolchhi.github.io/
-// @version      0.20260028122847
+// @version      0.20260028130140
 // @description  Download articles, summaries, analyses, and notes from various English Literature websites as PDF.
 // @author       NaeemBolchhi
 // @license      GPL-3.0-or-later
@@ -360,21 +360,10 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// When they zoom in, keep UI stable
-function stabilizeUiScale() {
-    const baseSize = 20;
-    const zoomLevel = window.visualViewport ? window.visualViewport.scale : 1;
-
-    // Divide the base size by the zoom level to get the inverse
-    const adjustedSize = baseSize / zoomLevel;
-
-    document.getElementById('pocketlibrary').style.setProperty('--_rem', adjustedSize + 'px');
-}
-window.addEventListener('resize', stabilizeUiScale);
-
 // window.PagedPolyfill.preview();
 // make another js for gui functions in book preview
 // run this command every time any style is changed
+
 // Book GUI js
 const bookGUI = `
 // When they click print
@@ -385,18 +374,6 @@ document.addEventListener('click', (e) => {
         }, 100);
     }
 });
-
-// When they zoom in, keep UI stable
-function stabilizeUiScale() {
-    const baseSize = 20;
-    const zoomLevel = window.visualViewport ? window.visualViewport.scale : 1;
-
-    // Divide the base size by the zoom level to get the inverse
-    const adjustedSize = baseSize / zoomLevel;
-
-    document.getElementById('pocketlibrary').style.setProperty('--_rem', adjustedSize + 'px');
-}
-window.addEventListener('resize', stabilizeUiScale);
 `;
 
 // Create an iframe for any url
@@ -456,7 +433,7 @@ function pocketPDF() {
                 <title>${pl_var.hostString} - ${pl_var.title} (${pl_var.author})</title>
 
                 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
                 <meta name="HandheldFriendly" content="true">
                 <meta name="description" content="${pl_var.title} by ${pl_var.author}.">
                 <meta name="author" content="${pl_var.author}">
