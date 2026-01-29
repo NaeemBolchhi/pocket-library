@@ -57,5 +57,101 @@ function getbookpanel() {
                 </a>
             </cloak>
         </div>
+        <div class="pl-book">
+            <div class="pl-book__toggle">
+                <div class="pl-left">
+                    <cloak>
+                        <a>${getIcon.arrow}</a>
+                    </cloak>
+                </div>
+            </div>
+            <div class="pl-book__pagesize">
+                <div class="pl-left">
+                    <cloak>
+                        <a>${getIcon.pagesize}</a>
+                    </cloak>
+                </div>
+                <div class="pl-right">
+                    <cloak>
+                        <a><span>Legal</span></a>
+                    </cloak>
+                    <cloak>
+                        <a><span>Letter</span></a>
+                    </cloak>
+                    <cloak>
+                        <a><span>ISO A4</span></a>
+                    </cloak>
+                </div>
+            </div>
+            <div class="pl-book__margins">
+                <div class="pl-left">
+                    <cloak>
+                        <a>${getIcon.margin}</a>
+                    </cloak>
+                </div>
+                <div class="pl-right">
+                    <cloak>
+                        <a><span>Normal</span></a>
+                    </cloak>
+                    <cloak>
+                        <a><span>Narrow</span></a>
+                    </cloak>
+                    <cloak>
+                        <a><span>Moderate</span></a>
+                    </cloak>
+                </div>
+            </div>
+            <div class="pl-book__fontface">
+                <div class="pl-left">
+                    <cloak>
+                        <a>${getIcon.fontface}</a>
+                    </cloak>
+                </div>
+                <div class="pl-right">
+                    <cloak>
+                        <a>${getIcon.fontsans}</a>
+                    </cloak>
+                    <cloak>
+                        <a>${getIcon.fontserif}</a>
+                    </cloak>
+                </div>
+            </div>
+            <div class="pl-book__fontsize">
+                <div class="pl-left">
+                    <cloak>
+                        <a>${getIcon.fontsize}</a>
+                    </cloak>
+                </div>
+                <div class="pl-right">
+                    <cloak>
+                        <a>${getIcon.minus}</a>
+                    </cloak>
+                    <cloak>
+                        <a><span>${getLocal('fontsize')}</span></a>
+                    </cloak>
+                    <cloak>
+                        <a>${getIcon.plus}</a>
+                    </cloak>
+                </div>
+            </div>
+            <div class="pl-book__linespacing">
+                <div class="pl-left">
+                    <cloak>
+                        <a>${getIcon.linespacing}</a>
+                    </cloak>
+                </div>
+                <div class="pl-right">
+                    <cloak>
+                        <a>${getIcon.minus}</a>
+                    </cloak>
+                    <cloak>
+                        <a><span>${getLocal('linespacing')}</span></a>
+                    </cloak>
+                    <cloak>
+                        <a>${getIcon.plus}</a>
+                    </cloak>
+                </div>
+            </div>
+        </div>
     `.replace(/\n/g,'').replace(/>\s+</g,'><').replace(/^\s+/g,'').replace(/\s+$/g,'');
 }

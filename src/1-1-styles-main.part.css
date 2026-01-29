@@ -25,15 +25,27 @@
   font-family: "Lato", sans-serif;
   -webkit-tap-highlight-color: transparent;
 }
+#pocketlibrary span {
+  padding: 0 calc(0.4 * var(--_rem));
+  position: relative;
+  top: -1px;
+}
+#pocketlibrary span:has(+ svg) {
+  padding-right: 0;
+}
 #pocketlibrary svg {
   overflow: visible;
+  margin: calc(0.4 * var(--_rem));
+}
+#pocketlibrary svg + span {
+  padding-left: 0;
 }
 #pocketlibrary .pl-settings a, #pocketlibrary .pl-refresh a {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: calc(2 * var(--_rem));
-  width: calc(2 * var(--_rem));
+  height: calc(1.8 * var(--_rem));
+  width: calc(1.8 * var(--_rem));
   line-height: 1;
 }
 #pocketlibrary .pl-prepare {
@@ -44,54 +56,49 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: calc(2 * var(--_rem));
-  min-width: calc(2 * var(--_rem));
+  height: calc(1.8 * var(--_rem));
+  min-width: calc(1.8 * var(--_rem));
   width: -moz-fit-content;
   width: fit-content;
-  gap: calc(0.5 * var(--_rem));
   line-height: 1;
-  padding: 0 calc(0.6 * var(--_rem));
 }
 #pocketlibrary .pl-preview a, #pocketlibrary .pl-print a {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: calc(2 * var(--_rem));
-  min-width: calc(2 * var(--_rem));
+  height: calc(1.8 * var(--_rem));
+  min-width: calc(1.8 * var(--_rem));
   width: -moz-fit-content;
   width: fit-content;
-  gap: calc(0.5 * var(--_rem));
   line-height: 1;
-  padding: 0 calc(0.6 * var(--_rem));
 }
-#pocketlibrary .pl-settings, #pocketlibrary .pl-prepare, #pocketlibrary .pl-preview, #pocketlibrary .pl-refresh, #pocketlibrary .pl-print {
-  padding: calc(0.15 * var(--_rem));
+#pocketlibrary .pl-settings, #pocketlibrary .pl-prepare, #pocketlibrary .pl-preview, #pocketlibrary .pl-refresh, #pocketlibrary .pl-print, #pocketlibrary .pl-left, #pocketlibrary .pl-right {
+  padding: calc(0.2 * var(--_rem));
   background: var(--_bg-main);
-  border-radius: calc(2.3 * var(--_rem));
+  border-radius: calc(2.2 * var(--_rem));
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
-#pocketlibrary .pl-settings, #pocketlibrary .pl-settings a, #pocketlibrary .pl-prepare, #pocketlibrary .pl-prepare a, #pocketlibrary .pl-preview, #pocketlibrary .pl-preview a, #pocketlibrary .pl-refresh, #pocketlibrary .pl-refresh a, #pocketlibrary .pl-print, #pocketlibrary .pl-print a {
+#pocketlibrary .pl-settings, #pocketlibrary .pl-settings a, #pocketlibrary .pl-prepare, #pocketlibrary .pl-prepare a, #pocketlibrary .pl-preview, #pocketlibrary .pl-preview a, #pocketlibrary .pl-refresh, #pocketlibrary .pl-refresh a, #pocketlibrary .pl-print, #pocketlibrary .pl-print a, #pocketlibrary .pl-left, #pocketlibrary .pl-left a, #pocketlibrary .pl-right, #pocketlibrary .pl-right a {
   cursor: pointer;
   color: inherit;
 }
-#pocketlibrary .pl-settings svg, #pocketlibrary .pl-prepare svg, #pocketlibrary .pl-preview svg, #pocketlibrary .pl-refresh svg, #pocketlibrary .pl-print svg {
+#pocketlibrary .pl-settings svg, #pocketlibrary .pl-prepare svg, #pocketlibrary .pl-preview svg, #pocketlibrary .pl-refresh svg, #pocketlibrary .pl-print svg, #pocketlibrary .pl-left svg, #pocketlibrary .pl-right svg {
   height: calc(1 * var(--_rem));
   width: calc(1 * var(--_rem));
 }
-#pocketlibrary .pl-settings cloak, #pocketlibrary .pl-prepare cloak, #pocketlibrary .pl-preview cloak, #pocketlibrary .pl-refresh cloak, #pocketlibrary .pl-print cloak {
+#pocketlibrary .pl-settings cloak, #pocketlibrary .pl-prepare cloak, #pocketlibrary .pl-preview cloak, #pocketlibrary .pl-refresh cloak, #pocketlibrary .pl-print cloak, #pocketlibrary .pl-left cloak, #pocketlibrary .pl-right cloak {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: calc(0.5 * var(--_rem));
   color: #ffffff;
   background: var(--_bg-main);
-  border-radius: calc(2 * var(--_rem));
+  border-radius: calc(1.8 * var(--_rem));
 }
-#pocketlibrary .pl-settings:hover cloak, #pocketlibrary .pl-settings:focus cloak, #pocketlibrary .pl-prepare:hover cloak, #pocketlibrary .pl-prepare:focus cloak, #pocketlibrary .pl-preview:hover cloak, #pocketlibrary .pl-preview:focus cloak, #pocketlibrary .pl-refresh:hover cloak, #pocketlibrary .pl-refresh:focus cloak, #pocketlibrary .pl-print:hover cloak, #pocketlibrary .pl-print:focus cloak {
+#pocketlibrary .pl-settings:hover cloak, #pocketlibrary .pl-settings:focus cloak, #pocketlibrary .pl-prepare:hover cloak, #pocketlibrary .pl-prepare:focus cloak, #pocketlibrary .pl-preview:hover cloak, #pocketlibrary .pl-preview:focus cloak, #pocketlibrary .pl-refresh:hover cloak, #pocketlibrary .pl-refresh:focus cloak, #pocketlibrary .pl-print:hover cloak, #pocketlibrary .pl-print:focus cloak, #pocketlibrary .pl-left:hover cloak, #pocketlibrary .pl-left:focus cloak, #pocketlibrary .pl-right:hover cloak, #pocketlibrary .pl-right:focus cloak {
   color: var(--_accent-main);
   background: var(--_bg-hover);
 }
-#pocketlibrary .pl-settings:active a, #pocketlibrary .pl-prepare:active a, #pocketlibrary .pl-preview:active a, #pocketlibrary .pl-refresh:active a, #pocketlibrary .pl-print:active a {
+#pocketlibrary .pl-settings:active a, #pocketlibrary .pl-prepare:active a, #pocketlibrary .pl-preview:active a, #pocketlibrary .pl-refresh:active a, #pocketlibrary .pl-print:active a, #pocketlibrary .pl-left:active a, #pocketlibrary .pl-right:active a {
   transform: translateY(3px);
 }
 #pocketlibrary:has(.pl-preview a[href]) .pl-prepare {
@@ -99,6 +106,45 @@
 }
 #pocketlibrary:has(.pl-preview a:not([href])) .pl-preview, #pocketlibrary:has(.pl-preview a:not([href])) .pl-refresh {
   display: none;
+}
+#pocketlibrary .pl-book {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  left: 0;
+  bottom: calc(2.7 * var(--_rem));
+  gap: calc(0.5 * var(--_rem));
+}
+#pocketlibrary .pl-book .pl-left a, #pocketlibrary .pl-book .pl-right a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(1.8 * var(--_rem));
+  line-height: 1;
+}
+#pocketlibrary .pl-book .pl-left a {
+  width: calc(1.8 * var(--_rem));
+}
+#pocketlibrary .pl-book .pl-right a {
+  min-width: calc(1.8 * var(--_rem));
+  width: -moz-fit-content;
+  width: fit-content;
+}
+#pocketlibrary .pl-book .pl-right a:has(svg):has(:not(span)) {
+  width: calc(1.8 * var(--_rem));
+}
+#pocketlibrary .pl-book > div {
+  display: flex;
+  gap: calc(0.5 * var(--_rem));
+}
+#pocketlibrary .pl-book .pl-right {
+  display: flex;
+}
+#pocketlibrary .pl-book .pl-right cloak {
+  gap: 0;
+}
+#pocketlibrary .pl-book__fontface .pl-right svg {
+  padding: calc(0.1 * var(--_rem));
 }
 
 @media print {
