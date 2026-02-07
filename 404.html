@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+    <title>Re:PocketLibrary</title>
+    <script>
+        function getVer() {
+            let date = new Date(),
+                ver = date.getFullYear().toString() + date.getMonth().toString().padStart(2,0) + date.getDate().toString().padStart(2,0) + date.getHours().toString().padStart(2,0) + date.getMinutes().toString().padStart(2,0) + date.getSeconds().toString().padStart(2,0);
+            return ver;
+        }
+
+        const pn = window.location.pathname.replace(/^\/pocket-library/,'');
+        const re = [
+            {
+                "m":"latest",
+                "r":`https://naeembolchhi.github.io/pocket-library/dist/pl.user.js?v=${getVer()}`
+            }
+        ];
+
+        // Default redirection link
+        let relink = window.location.origin + '/pocket-library/';
+
+        for (let x = 0; x < re.length; x++) {
+            if (pn === '/' + re[x].m || pn === '/' + re[x].m + '/') {
+                relink = re[x].r;
+            }
+        }
+
+        // Redirects to homepage if no matches are found
+        window.location.assign(relink + window.location.search);
+    </script>
+</head>
+<body>
+</body>
+</html>
