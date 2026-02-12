@@ -8,6 +8,7 @@ Pocket Library uses Paged.js to dynamically convert content from supported websi
 
 ## Supported Websites
 - [CliffsNotes](https://www.cliffsnotes.com/)
+- [LitCharts](https://www.litcharts.com/lit) (Literature only)
 
 ## Install
 

@@ -72,3 +72,7 @@ if (getLocal('bookmenustate') === undefined) {
 const pl_var = {};
 pl_var.pl_running = false;
 pl_var.specialStyles = '';
+
+// Query Selector Shortcut
+const $ = (s, o = document) => o.querySelector(s);
+const $$ = (s, o = document) => o.querySelectorAll(s);

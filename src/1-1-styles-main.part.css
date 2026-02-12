@@ -1,11 +1,12 @@
-#onetrust-consent-sdk, .hide-for-small-only {
+#onetrust-consent-sdk, .hide-for-small-only,
+.stretch-left-promo, .download-links-banner {
   display: none !important;
 }
 
 #pocketlibrary {
   --_rem: 20px;
   --_bg-main: #000000;
-  --_bg-hover: #161616;
+  --_bg-hover: #232323;
   --_accent-main: #e43434;
   --_text-color: #ffffff;
   --_text-color-inactive: #ffffff66;
@@ -29,6 +30,9 @@
   -webkit-tap-highlight-color: transparent;
   transition-duration: 0.05s;
 }
+#pocketlibrary a {
+  all: unset;
+}
 #pocketlibrary span {
   padding: 0 calc(0.4 * var(--_rem));
   position: relative;
@@ -44,6 +48,9 @@
 #pocketlibrary svg + span {
   padding-left: 0;
 }
+#pocketlibrary svg path {
+  opacity: 1 !important;
+}
 #pocketlibrary .pl-settings a, #pocketlibrary .pl-refresh a {
   display: flex;
   align-items: center;
@@ -56,7 +63,6 @@
   background-image: conic-gradient(var(--_accent-main) var(--_progress-bar), var(--_bg-main) var(--_progress-bar)) !important;
 }
 #pocketlibrary .pl-prepare a {
-  all: unset;
   display: flex;
   align-items: center;
   justify-content: center;

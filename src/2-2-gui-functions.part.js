@@ -7,7 +7,7 @@ function preparePDF() {
 
 // Progress Bar
 function updateProgress(input) {
-    let pl = document.querySelector('#pocketlibrary');
+    let pl = $('#pocketlibrary');
 
     pl.style.setProperty('--_progress-bar', parseFloat(input).toFixed(2) + 'deg');
 }

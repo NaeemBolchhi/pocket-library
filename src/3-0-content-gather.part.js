@@ -10,7 +10,7 @@ function createFrame(link) {
 
 // Delete an iframe
 function deleteFrame(src) {
-    document.querySelector(`iframe.pl-iframe[src="${src}"]`).remove();
+    $(`iframe.pl-iframe[src="${src}"]`).remove();
 }
 
 // Loop through link list
@@ -107,11 +107,7 @@ window.addEventListener('message', (e) => {
 document.addEventListener("DOMContentLoaded", (e) => {
     if (!window.location.href.match(/\?pl_looping/)) {return;}
 
-    let content = document.querySelector(pl_var.contentContainer);
-
-    if (content) {
-        sessionStorage.pl_content += content.innerHTML;
-    }
+    sessionStorage.pl_content += getContent();
 
     window.parent.postMessage('pl-iframe-done-' + window.location.href);
 });
