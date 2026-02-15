@@ -41,7 +41,7 @@ function setHeading() {
         <heading>
             <htitle>${pl_var.title}</htitle>
             <hauthor>${pl_var.author}</hauthor>
-            <p>${getIcon.logo.replace(' fill="currentColor">','>')} From ${pl_var.hostString} via <a href="https://naeembolchhi.github.io/pocket-library/" target="_blank">Pocket Library</a></p>
+            <p class="about">${getIcon.logo.replace(' fill="currentColor">','>')} From ${pl_var.hostString} via <a href="https://naeembolchhi.github.io/pocket-library/" target="_blank">Pocket Library</a></p>
         </heading>
     `;
 }

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pocket Library
 // @namespace    https://naeembolchhi.github.io/
-// @version      0.20260112212529
+// @version      0.20260115231906
 // @description  Download articles, summaries, analyses, and notes from various English Literature websites as PDF.
 // @author       NaeemBolchhi
 // @license      GPL-3.0-or-later

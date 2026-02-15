@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pocket Library
 // @namespace    https://naeembolchhi.github.io/
-// @version      0.20260112212529
+// @version      0.20260115231906
 // @description  Download articles, summaries, analyses, and notes from various English Literature websites as PDF.
 // @author       NaeemBolchhi
 // @license      GPL-3.0-or-later
@@ -987,7 +987,7 @@ function setHeading() {
         <heading>
             <htitle>${pl_var.title}</htitle>
             <hauthor>${pl_var.author}</hauthor>
-            <p>${getIcon.logo.replace(' fill="currentColor">','>')} From ${pl_var.hostString} via <a href="https://naeembolchhi.github.io/pocket-library/" target="_blank">Pocket Library</a></p>
+            <p class="about">${getIcon.logo.replace(' fill="currentColor">','>')} From ${pl_var.hostString} via <a href="https://naeembolchhi.github.io/pocket-library/" target="_blank">Pocket Library</a></p>
         </heading>
     `;
 }
