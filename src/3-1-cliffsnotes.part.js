@@ -40,6 +40,7 @@ if (window.location.hostname.includes('cliffsnotes.com')) {
         }
         .litNoteTextHeading {
             font-weight: 700;
+            break-after: avoid;
         }
         h2 {
             break-before: page;

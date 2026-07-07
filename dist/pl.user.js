@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pocket Library
 // @namespace    https://naeembolchhi.github.io/
-// @version      0.20260607175625
+// @version      0.20260607181128
 // @description  Download articles, summaries, analyses, and notes from various English Literature websites as PDF.
 // @author       NaeemBolchhi
 // @license      GPL-3.0-or-later
@@ -1102,6 +1102,7 @@ if (window.location.hostname.includes('cliffsnotes.com')) {
         }
         .litNoteTextHeading {
             font-weight: 700;
+            break-after: avoid;
         }
         h2 {
             break-before: page;
