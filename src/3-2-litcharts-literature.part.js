@@ -23,21 +23,21 @@ if (window.location.hostname.includes('litcharts.com') && window.location.pathna
         return true;
     }
 
-    function getContent() {
+    function getContent(doc = document, url = window.location.href) {
         let content = '',
-            path = window.location.pathname;
+            path = new URL(url).pathname;
 
-        if ($('#context') && $('.table-of-contents')) {
-            content = '<h2>Introduction</h2>' + $('#context').innerHTML;
+        if ($('#context', doc) && $('.table-of-contents', doc)) {
+            content = '<h2>Introduction</h2>' + $('#context', doc).innerHTML;
         }
         else if (path.match(/\/summary$/)) {
-            content = '<h2>Plot</h2>' + $('.content .readable').innerHTML;
+            content = '<h2>Plot</h2>' + $('.content .readable', doc).innerHTML;
         }
         else if (path.match(/\/summary\-and\-analysis$/)) {
             content = '<h2>Summary</h2>';
 
-            for (let x = 0; x < $$('.content .summary .summary-text').length; x++) {
-                content += `<p>${$$('.content .summary .summary-text')[x].innerHTML}</p>`;
+            for (let x = 0; x < $$('.content .summary .summary-text', doc).length; x++) {
+                content += `<p>${$$('.content .summary .summary-text', doc)[x].innerHTML}</p>`;
             }
         }
         else if (path.match(/\/themes$/)) {
@@ -50,14 +50,14 @@ if (window.location.hostname.includes('litcharts.com') && window.location.pathna
             content = '<h2>Symbol Analysis</h2>';
         }
         else if (path.match(/\/themes\//) || path.match(/\/symbols\//)) {
-            content += `<h3>${$('.component-title').textContent}</h3>`;
+            content += `<h3>${$('.component-title', doc).textContent}</h3>`;
 
-            content += $('.content .readable .highlightable-content').innerHTML;
+            content += $('.content .readable .highlightable-content', doc).innerHTML;
         }
         else if (path.match(/\/characters\//)) {
-            content += `<h3>${$('.component-title').textContent}</h3>`;
+            content += `<h3>${$('.component-title', doc).textContent}</h3>`;
 
-            content += `<p>${$('.content .readable .highlightable-content').innerHTML}</p>`;
+            content += `<p>${$('.content .readable .highlightable-content', doc).innerHTML}</p>`;
         }
 
         return content;

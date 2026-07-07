@@ -1,40 +1,3 @@
-// Create an iframe for any url
-function createFrame(link) {
-    let iframe = document.createElement('iframe');
-    iframe.src = link;
-    iframe.classList = 'pl-iframe';
-    iframe.setAttribute('style','height:100svh;width:100svw;position:fixed;left:-300svw;bottom:-300svh');
-
-    document.body.appendChild(iframe);
-}
-
-// Delete an iframe
-function deleteFrame(src) {
-    $(`iframe.pl-iframe[src="${src}"]`).remove();
-}
-
-// Loop through link list
-function looper() {
-    if (!pl_var.loop) {
-        pl_var.loop = 1;
-        sessionStorage.pl_content = '';
-    } else {
-        pl_var.loop++;
-    }
-
-    if (pl_var.loop - 1 !== pl_var.linkArray.length) {
-        createFrame(pl_var.linkArray[pl_var.loop - 1] + '?pl_looping');
-    } else {
-        pocketPDF();
-
-        setTimeout(() => {
-            updateProgress(0);
-        }, 750);
-    }
-
-    updateProgress(pl_var.loop / pl_var.linkArray.length * 360);
-}
-
 // Arrange heading of the document
 function setHeading() {
     return `
@@ -44,6 +7,47 @@ function setHeading() {
             <p class="about">${getIcon.logo.replace(' fill="currentColor">','>')} From ${pl_var.hostString} via <a href="https://naeembolchhi.github.io/pocket-library/" target="_blank">Pocket Library</a></p>
         </heading>
     `;
+}
+
+// Fetch a single link and extract its content via the site's getContent()
+async function fetchContent(link) {
+    const res = await fetch(link, { credentials: 'same-origin' });
+
+    if (!res.ok) {
+        throw new Error(`${res.status} ${res.statusText}`);
+    }
+
+    const html = await res.text();
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+
+    return getContent(doc, link);
+}
+
+// Loop through link list, fetching and parsing each page in place of the old iframe method
+async function looper() {
+    sessionStorage.pl_content = '';
+    pl_var.failedLinks = [];
+
+    for (let x = 0; x < pl_var.linkArray.length; x++) {
+        try {
+            sessionStorage.pl_content += await fetchContent(pl_var.linkArray[x]);
+        } catch (err) {
+            pl_var.failedLinks.push(pl_var.linkArray[x]);
+            console.warn('Pocket Library: failed to fetch', pl_var.linkArray[x], err);
+        }
+
+        updateProgress((x + 1) / pl_var.linkArray.length * 360);
+    }
+
+    if (pl_var.failedLinks.length) {
+        console.warn(`Pocket Library: ${pl_var.failedLinks.length} page(s) could not be included`, pl_var.failedLinks);
+    }
+
+    pocketPDF();
+
+    setTimeout(() => {
+        updateProgress(0);
+    }, 750);
 }
 
 // Put content together in a new tab
@@ -95,19 +99,3 @@ function pocketPDF() {
     document.querySelector('#pocketlibrary .pl-preview a').click();
     // window.open(blobURL, '_blank');
 }
-
-window.addEventListener('message', (e) => {
-    if (typeof e.data !== 'string') return;
-    if (!e.data.match(/pl\-iframe\-done\-/)) {return;}
-
-    deleteFrame(e.data.replace(/pl\-iframe\-done\-/,''));
-    looper();
-});
-
-document.addEventListener("DOMContentLoaded", (e) => {
-    if (!window.location.href.match(/\?pl_looping/)) {return;}
-
-    sessionStorage.pl_content += getContent();
-
-    window.parent.postMessage('pl-iframe-done-' + window.location.href);
-});

@@ -32,7 +32,7 @@ Simply disable or remove the script from the dashboard of your script manager. I
 - [Paged.js](https://github.com/pagedjs/pagedjs/)
 - [Source Serif](https://fonts.google.com/specimen/Source+Serif+4)
 - [Source Sans](https://fonts.google.com/specimen/Source+Sans+3)
-- [Lato](https://fonts.google.com/specimen/Source+Sans+3)
+- [Lato](https://fonts.google.com/specimen/Lato)
 - [Material Icons](https://fonts.google.com/icons?selected=Material+Icons)
 
 ## License

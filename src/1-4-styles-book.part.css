@@ -1,7 +1,6 @@
 html {
   --font-size: 12px;
   --line-spacing: 1.5;
-  font-size: var(--font-size);
 }
 html[data-font=sans] {
   font-family: "Source Sans", sans-serif;
@@ -9,10 +8,21 @@ html[data-font=sans] {
 html[data-font=serif] {
   font-family: "Source Serif", serif;
 }
+html {
+  font-size: var(--font-size);
+}
 
-p {
+p, li {
   text-align: justify;
   line-height: var(--line-spacing);
+}
+
+p, ul, ol {
+  margin: 1em 0;
+}
+
+li {
+  margin: 0.35em 0;
 }
 
 a {

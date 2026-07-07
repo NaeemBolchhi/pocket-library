@@ -21,9 +21,17 @@ html {
     font-size: var(--font-size);
 }
 
-p {
+p, li {
     text-align: justify;
     line-height: var(--line-spacing);
+}
+
+p, ul, ol {
+    margin: 1em 0;
+}
+
+li {
+    margin: .35em 0;
 }
 
 a {

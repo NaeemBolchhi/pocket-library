@@ -23,8 +23,8 @@ if (window.location.hostname.includes('cliffsnotes.com')) {
         return true;
     }
 
-    function getContent() {
-        let content = $('article.copy');
+    function getContent(doc = document, url = window.location.href) {
+        let content = $('article.copy', doc);
 
         if (content) {
             return content.innerHTML;

@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name         Pocket Library
 // @namespace    https://naeembolchhi.github.io/
-// @version      0.20260115231906
+// @version      0.20260607175625
 // @description  Download articles, summaries, analyses, and notes from various English Literature websites as PDF.
 // @author       NaeemBolchhi
 // @license      GPL-3.0-or-later
 // @icon         https://naeembolchhi.github.io/pocket-library/icon.svg
 // @match        https://www.cliffsnotes.com/*
 // @match        https://www.litcharts.com/lit/*
-// @run-at       document-body
+// @run-at       document-idle
 // @grant        none
 // @homepageURL  https://naeembolchhi.github.io/pocket-library/
 // @supportURL   https://github.com/NaeemBolchhi/pocket-library/issues
@@ -102,27 +102,6 @@ const mainStyles = `
   display: none !important;
 }
 
-#pocketlibrary {
-  --_rem: 20px;
-  --_bg-main: #000000;
-  --_bg-hover: #232323;
-  --_accent-main: #e43434;
-  --_text-color: #ffffff;
-  --_text-color-inactive: #ffffff66;
-  --_progress-bar: 0deg;
-  display: flex;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  padding: 0 calc(1 * var(--_rem)) calc(1 * var(--_rem)) calc(1 * var(--_rem));
-  z-index: 2147483648;
-  gap: calc(0.5 * var(--_rem));
-  font-size: calc(0.8 * var(--_rem));
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-}
 #pocketlibrary, #pocketlibrary * {
   box-sizing: border-box;
   font-family: "Lato", sans-serif;
@@ -149,6 +128,27 @@ const mainStyles = `
 }
 #pocketlibrary svg path {
   opacity: 1 !important;
+}
+#pocketlibrary {
+  --_rem: 20px;
+  --_bg-main: #000000;
+  --_bg-hover: #232323;
+  --_accent-main: #e43434;
+  --_text-color: #ffffff;
+  --_text-color-inactive: #ffffff66;
+  --_progress-bar: 0deg;
+  display: flex;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  padding: 0 calc(1 * var(--_rem)) calc(1 * var(--_rem)) calc(1 * var(--_rem));
+  z-index: 2147483648;
+  gap: calc(0.5 * var(--_rem));
+  font-size: calc(0.8 * var(--_rem));
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
 }
 #pocketlibrary .pl-settings a, #pocketlibrary .pl-refresh a {
   display: flex;
@@ -181,15 +181,15 @@ const mainStyles = `
   width: fit-content;
   line-height: 1;
 }
+#pocketlibrary .pl-settings, #pocketlibrary .pl-settings a, #pocketlibrary .pl-prepare, #pocketlibrary .pl-prepare a, #pocketlibrary .pl-preview, #pocketlibrary .pl-preview a, #pocketlibrary .pl-refresh, #pocketlibrary .pl-refresh a, #pocketlibrary .pl-print, #pocketlibrary .pl-print a, #pocketlibrary .pl-left, #pocketlibrary .pl-left a, #pocketlibrary .pl-right, #pocketlibrary .pl-right a {
+  cursor: pointer;
+  color: inherit;
+}
 #pocketlibrary .pl-settings, #pocketlibrary .pl-prepare, #pocketlibrary .pl-preview, #pocketlibrary .pl-refresh, #pocketlibrary .pl-print, #pocketlibrary .pl-left, #pocketlibrary .pl-right {
   padding: calc(0.2 * var(--_rem));
   background: var(--_bg-main);
   border-radius: calc(2.2 * var(--_rem));
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-}
-#pocketlibrary .pl-settings, #pocketlibrary .pl-settings a, #pocketlibrary .pl-prepare, #pocketlibrary .pl-prepare a, #pocketlibrary .pl-preview, #pocketlibrary .pl-preview a, #pocketlibrary .pl-refresh, #pocketlibrary .pl-refresh a, #pocketlibrary .pl-print, #pocketlibrary .pl-print a, #pocketlibrary .pl-left, #pocketlibrary .pl-left a, #pocketlibrary .pl-right, #pocketlibrary .pl-right a {
-  cursor: pointer;
-  color: inherit;
 }
 #pocketlibrary .pl-settings svg, #pocketlibrary .pl-prepare svg, #pocketlibrary .pl-preview svg, #pocketlibrary .pl-refresh svg, #pocketlibrary .pl-print svg, #pocketlibrary .pl-left svg, #pocketlibrary .pl-right svg {
   height: calc(1 * var(--_rem));
@@ -233,10 +233,6 @@ const mainStyles = `
   margin-bottom: calc(3.2 * var(--_rem));
   gap: calc(0.5 * var(--_rem));
   overflow: hidden;
-  /* Mark selected */
-  /* Hide and Reveal Toggles */
-  --_one-row: calc((2.7) * var(--_rem));
-  --_full-row: calc(var(--_one-row) * 6);
 }
 #pocketlibrary .pl-book .pl-left a, #pocketlibrary .pl-book .pl-right a {
   display: flex;
@@ -278,6 +274,9 @@ const mainStyles = `
   width: -moz-fit-content;
   width: fit-content;
   min-width: 5ch;
+}
+#pocketlibrary .pl-book {
+  /* Mark selected */
 }
 #pocketlibrary .pl-book__pagesize .pl-right cloak, #pocketlibrary .pl-book__margin .pl-right cloak, #pocketlibrary .pl-book__fontface .pl-right cloak {
   color: var(--_text-color-inactive);
@@ -339,6 +338,11 @@ const mainStyles = `
   transform: none;
 }
 #pocketlibrary .pl-book {
+  /* Hide and Reveal Toggles */
+  --_one-row: calc((2.7) * var(--_rem));
+  --_full-row: calc(var(--_one-row) * 6);
+}
+#pocketlibrary .pl-book {
   transition: height 0.3s ease;
   height: var(--_full-row);
 }
@@ -397,7 +401,6 @@ const bookStyles = `
 html {
   --font-size: 12px;
   --line-spacing: 1.5;
-  font-size: var(--font-size);
 }
 html[data-font=sans] {
   font-family: "Source Sans", sans-serif;
@@ -405,10 +408,21 @@ html[data-font=sans] {
 html[data-font=serif] {
   font-family: "Source Serif", serif;
 }
+html {
+  font-size: var(--font-size);
+}
 
-p {
+p, li {
   text-align: justify;
   line-height: var(--line-spacing);
+}
+
+p, ul, ol {
+  margin: 1em 0;
+}
+
+li {
+  margin: 0.35em 0;
 }
 
 a {
@@ -944,43 +958,6 @@ setSelections();
 previewPaged();
 `;
 
-// Create an iframe for any url
-function createFrame(link) {
-    let iframe = document.createElement('iframe');
-    iframe.src = link;
-    iframe.classList = 'pl-iframe';
-    iframe.setAttribute('style','height:100svh;width:100svw;position:fixed;left:-300svw;bottom:-300svh');
-
-    document.body.appendChild(iframe);
-}
-
-// Delete an iframe
-function deleteFrame(src) {
-    $(`iframe.pl-iframe[src="${src}"]`).remove();
-}
-
-// Loop through link list
-function looper() {
-    if (!pl_var.loop) {
-        pl_var.loop = 1;
-        sessionStorage.pl_content = '';
-    } else {
-        pl_var.loop++;
-    }
-
-    if (pl_var.loop - 1 !== pl_var.linkArray.length) {
-        createFrame(pl_var.linkArray[pl_var.loop - 1] + '?pl_looping');
-    } else {
-        pocketPDF();
-
-        setTimeout(() => {
-            updateProgress(0);
-        }, 750);
-    }
-
-    updateProgress(pl_var.loop / pl_var.linkArray.length * 360);
-}
-
 // Arrange heading of the document
 function setHeading() {
     return `
@@ -990,6 +967,47 @@ function setHeading() {
             <p class="about">${getIcon.logo.replace(' fill="currentColor">','>')} From ${pl_var.hostString} via <a href="https://naeembolchhi.github.io/pocket-library/" target="_blank">Pocket Library</a></p>
         </heading>
     `;
+}
+
+// Fetch a single link and extract its content via the site's getContent()
+async function fetchContent(link) {
+    const res = await fetch(link, { credentials: 'same-origin' });
+
+    if (!res.ok) {
+        throw new Error(`${res.status} ${res.statusText}`);
+    }
+
+    const html = await res.text();
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+
+    return getContent(doc, link);
+}
+
+// Loop through link list, fetching and parsing each page in place of the old iframe method
+async function looper() {
+    sessionStorage.pl_content = '';
+    pl_var.failedLinks = [];
+
+    for (let x = 0; x < pl_var.linkArray.length; x++) {
+        try {
+            sessionStorage.pl_content += await fetchContent(pl_var.linkArray[x]);
+        } catch (err) {
+            pl_var.failedLinks.push(pl_var.linkArray[x]);
+            console.warn('Pocket Library: failed to fetch', pl_var.linkArray[x], err);
+        }
+
+        updateProgress((x + 1) / pl_var.linkArray.length * 360);
+    }
+
+    if (pl_var.failedLinks.length) {
+        console.warn(`Pocket Library: ${pl_var.failedLinks.length} page(s) could not be included`, pl_var.failedLinks);
+    }
+
+    pocketPDF();
+
+    setTimeout(() => {
+        updateProgress(0);
+    }, 750);
 }
 
 // Put content together in a new tab
@@ -1042,22 +1060,6 @@ function pocketPDF() {
     // window.open(blobURL, '_blank');
 }
 
-window.addEventListener('message', (e) => {
-    if (typeof e.data !== 'string') return;
-    if (!e.data.match(/pl\-iframe\-done\-/)) {return;}
-
-    deleteFrame(e.data.replace(/pl\-iframe\-done\-/,''));
-    looper();
-});
-
-document.addEventListener("DOMContentLoaded", (e) => {
-    if (!window.location.href.match(/\?pl_looping/)) {return;}
-
-    sessionStorage.pl_content += getContent();
-
-    window.parent.postMessage('pl-iframe-done-' + window.location.href);
-});
-
 /* CliffsNotes */
 if (window.location.hostname.includes('cliffsnotes.com')) {
     // Set filename variables
@@ -1083,8 +1085,8 @@ if (window.location.hostname.includes('cliffsnotes.com')) {
         return true;
     }
 
-    function getContent() {
-        let content = $('article.copy');
+    function getContent(doc = document, url = window.location.href) {
+        let content = $('article.copy', doc);
 
         if (content) {
             return content.innerHTML;
@@ -1136,21 +1138,21 @@ if (window.location.hostname.includes('litcharts.com') && window.location.pathna
         return true;
     }
 
-    function getContent() {
+    function getContent(doc = document, url = window.location.href) {
         let content = '',
-            path = window.location.pathname;
+            path = new URL(url).pathname;
 
-        if ($('#context') && $('.table-of-contents')) {
-            content = '<h2>Introduction</h2>' + $('#context').innerHTML;
+        if ($('#context', doc) && $('.table-of-contents', doc)) {
+            content = '<h2>Introduction</h2>' + $('#context', doc).innerHTML;
         }
         else if (path.match(/\/summary$/)) {
-            content = '<h2>Plot</h2>' + $('.content .readable').innerHTML;
+            content = '<h2>Plot</h2>' + $('.content .readable', doc).innerHTML;
         }
         else if (path.match(/\/summary\-and\-analysis$/)) {
             content = '<h2>Summary</h2>';
 
-            for (let x = 0; x < $$('.content .summary .summary-text').length; x++) {
-                content += `<p>${$$('.content .summary .summary-text')[x].innerHTML}</p>`;
+            for (let x = 0; x < $$('.content .summary .summary-text', doc).length; x++) {
+                content += `<p>${$$('.content .summary .summary-text', doc)[x].innerHTML}</p>`;
             }
         }
         else if (path.match(/\/themes$/)) {
@@ -1163,14 +1165,14 @@ if (window.location.hostname.includes('litcharts.com') && window.location.pathna
             content = '<h2>Symbol Analysis</h2>';
         }
         else if (path.match(/\/themes\//) || path.match(/\/symbols\//)) {
-            content += `<h3>${$('.component-title').textContent}</h3>`;
+            content += `<h3>${$('.component-title', doc).textContent}</h3>`;
 
-            content += $('.content .readable .highlightable-content').innerHTML;
+            content += $('.content .readable .highlightable-content', doc).innerHTML;
         }
         else if (path.match(/\/characters\//)) {
-            content += `<h3>${$('.component-title').textContent}</h3>`;
+            content += `<h3>${$('.component-title', doc).textContent}</h3>`;
 
-            content += `<p>${$('.content .readable .highlightable-content').innerHTML}</p>`;
+            content += `<p>${$('.content .readable .highlightable-content', doc).innerHTML}</p>`;
         }
 
         return content;
